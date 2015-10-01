@@ -6,13 +6,19 @@
 		game.height = 500;
 		game.width = 400;
 		game.stars = [];
+
+		// Creez contextul de la fiecare canvas
+		// Primu canvas este pentru background
+		// Al doilea canvas este pentru actiunile Jocului
 		game.contextBackground = document.getElementById("background-image").getContext("2d");
 		game.contextAction = document.getElementById("action").getContext("2d");
-		game.contextBackground.fillStyle = "black";
+		
+		//creez background-ul *definit ca si negru*
+		game.contextBackground.fillStyle = "#000";
 		game.contextBackground.fillRect(0, 0, game.width, game.height);
 
 
-		function initializare(){
+		function runBackground(){
 			animation();
 		}
 
@@ -30,12 +36,12 @@
 			addStars(1);
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
-				console.log("merge");
 			}
 		}
 
 		function showStars(){
-			game.contextBackground.clearRect(0, 0, game.width, game.height);
+			game.contextBackground.fillStyle = "white";
+			game.contextBackground.fillRect(0, 0, game.width, game.height);
 			game.contextBackground.fillStyle = "white";
 			for (var i = 0; i < game.stars.length; i++) {
 				var stea = game.stars[i];
@@ -45,16 +51,16 @@
 		}
 
 		function animation(){
-
+			updateStars();
+			showStars();
 			requestAnimFrame(function(){
-				updateStars();
-				showStars();
 				animation();
 			});
 		}
 
 		//rularea background-ului
-		initializare();
+	 	runBackground();
+	
 	});	
 });
 
@@ -67,6 +73,6 @@ window.requestAnimFrame = (function(){
           window.oRequestAnimationFrame      ||
           window.msRequestAnimationFrame     ||
           function( callback ){
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 1000 / 80);
           };
 })();
