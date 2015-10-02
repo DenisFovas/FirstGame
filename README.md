@@ -1,4 +1,5 @@
 # FirstGame
 
 ~ Background -check <br/>
-~ BackgroundMovement - working
+~ BackgroundMovement - check <br/>
+~ Lag improvement - working
