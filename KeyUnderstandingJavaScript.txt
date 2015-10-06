@@ -1,0 +1,54 @@
+keydown diferit de keypressed
+
+de folosit mai des: onkeydown (w3 school/ resurse)
+					onkeyup (w3 school/ resurse)
+
+in Firefox nu merge onkeyup/down
+
+trebuie delcarat intr-o functie, ca si parametru functia "event", atat la apelul din codul html cat si la functie Js
+
+"event.which || event.keyCode" sunt pentru a merge pe browsere
+
+
+Coduri taste:
+	tasta "a":  keycode = 65
+	tasta "s":	keycode = 83
+	tasta "d":	keycode = 68
+	tasta "w":	keycode = 87
+codurile sunt puse in ordinea literelor(ordine alfababetica)(a,b,c,d,e etc.)
+
+
+	<-- COD PENTRU A AFISA TASTELE NECESARE -->
+
+document.onkeypress = function(myEvent) {
+    console.log(myEvent.which);
+};
+
+
+	<-- COD TASTE -->
+	function keyCode(event) {
+    var x = event.keyCode;
+    if (event.keyCode == 27) {
+        alert ("You pressed the Escape key!");
+    }
+}
+
+
+
+
+	<-- cod taste -->
+
+function TastaApasata(event){
+	var tastaAleasa = event.which || event.keyCode;
+	if (tastaAleasa === "a")
+		// cod
+	else if (tastaAleasa === "s")
+		// cod
+	else if(tasta aleasa === "d")
+		//cod
+	else if(tasta aleasa === "w")
+		// cod
+	else if (minigameMonede.activare == true){
+		//onclick event actiune
+	} 
+}

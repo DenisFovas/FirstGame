@@ -1,5 +1,2 @@
 # FirstGame
-
-~ Background -check <br/>
-~ BackgroundMovement - check <br/>
-~ Lag improvement - working
+	See to do list to can see things that needs to be done, and the things done

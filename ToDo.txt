@@ -13,8 +13,11 @@ Idei:
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite
 				& Resize in functie de ecran
-		@ Algortim de aflare taste
+		@ Algortim de aflare taste 
+			# Inca invatare
 		@ Algortim de miscare a imaginilor in functie de taste
+			# "onkeydown" se misca nava in functie de tasta apasata
+			# "onkeyup" se opreste din miscare
 		@ Algoritm care va misca inamicii (stanga, dreapta)/(random)
 		@ Creaza meteorit(inamicMeteorit) care v-a aparea la un nivel si v-a trebui ca nava principala sa i fereasca
 		@ Algoritm care va lansa random pe ecran inamicMeteorit pe coordonata x=Math.random, y=-10, si coordonata y v-a creste pana iese de pe ecran
@@ -55,3 +58,7 @@ Resurse:
 	~ http://karnakgames.com/wp/2010/10/gimp-for-pixel-art-shortcuts-setup-and-tips/
 	~ http://www.dinofarmgames.com/the-art-barn-the-cool-rules-of-spriting/
 	~ https://www.youtube.com/watch?v=YCI8uqePkrc
+	~ http://www.w3schools.com/jsref/event_onkeydown.asp
+	~ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+	~ http://stackoverflow.com/questions/3476000/javascript-key-handling-and-browser-compatibility	//taste
+	~ http://stackoverflow.com/questions/15344104/smooth-character-movement-in-canvas-game-using-keyboard-controls // pentru a identifica tastele
