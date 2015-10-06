@@ -49,8 +49,8 @@ Resurse:
 	~ http://www.williammalone.com/articles/
 	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
 	~ http://www.ajaxblender.com/howto-resize-image-proportionally-using-javascript.html
-	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6
-	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER
+	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6	//image playlist
+	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER	//playlist canvas
 	~ http://www.masswerk.at/JavaPac/pacman-howto.html
 	~ http://www.policyalmanac.org/games/aStarTutorial.htm
 	~ https://en.wikipedia.org/wiki/Flood_fill
@@ -62,3 +62,6 @@ Resurse:
 	~ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
 	~ http://stackoverflow.com/questions/3476000/javascript-key-handling-and-browser-compatibility	//taste
 	~ http://stackoverflow.com/questions/15344104/smooth-character-movement-in-canvas-game-using-keyboard-controls // pentru a identifica tastele
+	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
+		// playlist pentru a intelege JavaScript + Jquery
+
