@@ -32,7 +32,7 @@
 				if (game.stars[i].y < -10) {
 					game.stars.splice(i, 1);
 				};
-				console.log(game.stars.length);
+				//console.log(game.stars.length);
 			};
 		}
 
@@ -59,7 +59,7 @@
 		// Functie care porneste animatiile
 		function fundalActiv(){
 			animeazaFundal();
-			for (var i = 0; i < 700; i++) {
+			for (var i = 0; i < 900; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 400),
 					y: Math.floor(Math.random() * 600),
@@ -82,6 +82,6 @@ window.requestAnimFrame = (function(){
           window.msRequestAnimationFrame     ||
           function( callback ){
           	// 1000 milisecunde = 1 secunda; "/ x" <=> xfps
-            window.setTimeout(callback, 1000 / 50); 
+            window.setTimeout(callback, 1000 / 60); 
           };
 })();

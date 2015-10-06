@@ -62,7 +62,7 @@
 	 	runBackground();
 	
 	});	
-});
+}) ();
 
 
 //functie de aratat animatiile pe 93% din browsere
