@@ -4,6 +4,7 @@ Idei:
 			# Stele
 			# Miscarea stelelor 
 				& V-a fi complet random, de cum incepe ecranul
+				& Rezolvat problema cu lag la stele
 		$ Creaza nava principala(cea a ucatorului) 
 		@ Creaza inamicii
 			# Gimp = mod de a face pixel art pentru GameArt-ul jocului

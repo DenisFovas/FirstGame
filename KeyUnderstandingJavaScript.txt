@@ -15,15 +15,7 @@ Coduri taste:
 	tasta "s":	keycode = 83
 	tasta "d":	keycode = 68
 	tasta "w":	keycode = 87
-codurile sunt puse in ordinea literelor(ordine alfababetica)(a,b,c,d,e etc.)
-
-
-	<-- COD PENTRU A AFISA TASTELE NECESARE -->
-
-document.onkeypress = function(myEvent) {
-    console.log(myEvent.which);
-};
-
+codurile sunt puse in ordinea literelor(ordine alfababetica)(a, b, c, d, e etc.)
 
 	<-- COD TASTE -->
 	function keyCode(event) {
@@ -33,22 +25,17 @@ document.onkeypress = function(myEvent) {
     }
 }
 
-
-
-
 	<-- cod taste -->
-
 function TastaApasata(event){
 	var tastaAleasa = event.which || event.keyCode;
 	if (tastaAleasa === "a")
-		// cod
-	else if (tastaAleasa === "s")
-		// cod
+		alert ("You pressed the Escape key!");	else if (tastaAleasa === "s")
+		
 	else if(tasta aleasa === "d")
-		//cod
+		alert ("You pressed the Escape key!");
 	else if(tasta aleasa === "w")
-		// cod
+		alert ("You pressed the Escape key!");
 	else if (minigameMonede.activare == true){
-		//onclick event actiune
+		alert ("You pressed the Escape key!");
 	} 
 }

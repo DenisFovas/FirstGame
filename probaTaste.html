@@ -9,10 +9,22 @@
 <p id="demo"></p>
 
 <script>
-function myFunction(event) {
-    var x =  event.keyCode;
-    document.getElementById("demo").innerHTML = "The Unicode value is: " + x;
-}
+
+// cod bun pentru taste, alertele lor si functionarea lor
+	function myFunction(event) {
+	    var x =  event.which || event.keyCode;
+	    document.getElementById("demo").innerHTML = "The Unicode value is: " + x;
+
+	    if (x === 97) {
+	    	alert("a")
+	    } else if(x === 115){
+	    	alert("s");
+	    } else if (x === 100) {
+    		alert("d");
+    	} else if (x === 119) {
+    		alert("w");
+    	};
+	}
 </script>
 
 </body>
