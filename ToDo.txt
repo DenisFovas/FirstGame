@@ -32,8 +32,18 @@ Idei:
 			# Proprietati css, schimb clasa de la fundal cu una prestabilita in codul css
 			# Clasa prestabilita va face fundalul complet negru, se elimina 15% (aproximativ) din nevoia de calcul a browserului, jocul mergand mai lin
 		@ Fundalul va fi complet pe tot ecranul de joc, momentan este setat la o marime mica deoarece se lucreaza la algortimi, apoi se va lucru la marimea tuturor imaginilor pentru un ecran
-			
+		@ Va fi un shop
+			# Itemele din el vor avea efecte asupra: damage
+													 viata
+													 rezistenta
+													 armura
+													 inamici
+													 viteza
+													 etc.
+			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
+
 		@ Story ??
+			# Folosire de nume mitologice
 
 
 Studiat:

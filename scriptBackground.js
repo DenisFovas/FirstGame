@@ -30,9 +30,10 @@
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
 				if (game.stars[i].y < -10) {
-					game.stars.splice(i, 1);
+					game.stars.splice(i, 1); // functie care v-a sterge din vectorul cu stele tot ce 
+					// numai se afiseaza pe ecran
 				};
-				//console.log(game.stars.length);
+				//console.log(game.stars.length); // pentru a afisa lungimea vectorilor de stele
 			};
 		}
 
