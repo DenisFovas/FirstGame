@@ -10,26 +10,30 @@ Idei:
 			# Gimp = mod de a face pixel art pentru GameArt-ul jocului
 				& Creare un inamic, se va repeta pe tot parcursul jocului
 				& Necesitate de a face inamicul mai mare decat jucatorul
+				$ Un inamic realizat (Inamic_1.jpg)
 		@ Implementeaza imaginile
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite
 				& Resize in functie de ecran
 		@ Algortim de aflare taste 
-			# Inca invatare
+			# probaTaste.html => contine informatii legate de exact tastele, folosirea lor in cadrul apasarii cat si un mod de a alege exact tasta potrivita pentru actiune
+
 		@ Algortim de miscare a imaginilor in functie de taste
 			# "onkeydown" se misca nava in functie de tasta apasata
 			# "onkeyup" se opreste din miscare
 		@ Algoritm care va misca inamicii (stanga, dreapta)/(random)
-		@ Creaza meteorit(inamicMeteorit) care v-a aparea la un nivel si v-a trebui ca nava principala sa i fereasca
-		@ Algoritm care va lansa random pe ecran inamicMeteorit pe coordonata x=Math.random, y=-10, si coordonata y v-a creste pana iese de pe ecran
+		@ Creaza meteorit(inamicMeteorit) care v-a aparea la un nivel si v-a trebui ca nava principala sa ii fereasca
+		@ Algoritm care va lansa random pe ecran inamicMeteorit pe coordonata x=Math.random, y=-10, si coordonata y v-a creste pana iese de pe ecran, deodata cu o constanta care v-a fi adaugata lui x
 		@ Atacurile vor fi bazate pe ctx.beginPath, ctx.lineTo, ctx.stroke.
 		@ Scorul pentru a trece la nivelul urmator trebuie setat
+			# Posibil un scor de 3000 pentru NextLevel();
 		@ Exista "combustibil"
-			# Daca combustibil==0 atunci intri intr-un mic quick_time_event care te pune sa strangi monede; fiecare moneda iti ofera combustibil; monedele v-or sta putin timp pe ecran;
+			# Daca "combustibil" == 0 atunci intri intr-un mic quick_time_event care te pune sa strangi monede; fiecare moneda iti ofera combustibil;   
+			# Monedele v-or sta putin timp pe ecran, aproximativ 5 secunde
 			# Pentru fiecare moneda ratata => scor scazut
 			# Pentru o culegere completa de monezi => +1 playerLife
-			# Disponibil la resurse
-		@ Mod daca playerul alege, fundal == negru
+			# Disponibilitate de a folosi monedele la un Shop();
+		@ Mod daca playerul alege, fundal = negru
 			# Proprietati css, schimb clasa de la fundal cu una prestabilita in codul css
 			# Clasa prestabilita va face fundalul complet negru, se elimina 15% (aproximativ) din nevoia de calcul a browserului, jocul mergand mai lin
 		@ Fundalul va fi complet pe tot ecranul de joc, momentan este setat la o marime mica deoarece se lucreaza la algortimi, apoi se va lucru la marimea tuturor imaginilor pentru un ecran
