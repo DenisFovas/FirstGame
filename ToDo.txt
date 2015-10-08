@@ -43,7 +43,7 @@ Idei:
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
 
 		@ Story ??
-			# Folosire de nume mitologice
+			# Folosire de nume mitologice pentru a atrage oamenii, ai face intrigati de poveste
 
 
 Studiat:
@@ -53,6 +53,7 @@ Studiat:
 	~ Algoritm mini-game pentru combustibil, studiu joc open source: sprite-animation-demos-1 din folderul ProgramareWeb
 	~ Studiu implementari joc
 	~ Web hosting
+	~ NodeJS
 
 
 Resurse:
