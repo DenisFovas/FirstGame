@@ -17,7 +17,8 @@ Idei:
 				& Resize in functie de ecran
 		@ Algortim de aflare taste 
 			# probaTaste.html => contine informatii legate de exact tastele, folosirea lor in cadrul apasarii cat si un mod de a alege exact tasta potrivita pentru actiune
-
+			# Realizat un mod de a crea alerte cand tastam ceva.
+			# Urmeaza creare unui algoritm in care putem sa miscam un obiect
 		@ Algortim de miscare a imaginilor in functie de taste
 			# "onkeydown" se misca nava in functie de tasta apasata
 			# "onkeyup" se opreste din miscare
@@ -46,6 +47,13 @@ Idei:
 													 viteza
 													 etc.
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
+		@ Tutorial bun
+			# Acesta va avea putin text
+			# Primul boss, cel mai usor va fi cel de introducere
+			# Intai miscarea + trasul
+			# Apoi introducem inamicii pe rand
+			# Apoi la final combustibil
+			# Apoi shop
 
 		@ Story ??
 			# Folosire de nume mitologice pentru a atrage oamenii, ai face intrigati de poveste
@@ -73,11 +81,13 @@ Resurse:
 	~ https://www.reddit.com/r/gamedev/comments/j0blg/game_art_tips_on_making/c2841zv
 	~ http://karnakgames.com/wp/2010/10/gimp-for-pixel-art-shortcuts-setup-and-tips/
 	~ http://www.dinofarmgames.com/the-art-barn-the-cool-rules-of-spriting/
-	~ https://www.youtube.com/watch?v=YCI8uqePkrc
+	~ https://www.youtube.com/watch?v=YCI8uqePkrc // tutorial particule
 	~ http://www.w3schools.com/jsref/event_onkeydown.asp
 	~ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
 	~ http://stackoverflow.com/questions/3476000/javascript-key-handling-and-browser-compatibility	//taste
 	~ http://stackoverflow.com/questions/15344104/smooth-character-movement-in-canvas-game-using-keyboard-controls // pentru a identifica tastele
 	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
 		// playlist pentru a intelege JavaScript + Jquery
+	~ http://stackoverflow.com/questions/7212103/how-to-move-an-image-around-with-arrow-keys-javascript
+		// Key movement
 

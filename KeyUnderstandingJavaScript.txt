@@ -9,16 +9,10 @@ trebuie delcarat intr-o functie, ca si parametru functia "event", atat la apelul
 
 "event.which || event.keyCode" sunt pentru a merge pe browsere
 
-
-Coduri taste:
-	tasta "a":  keycode = 65
-	tasta "s":	keycode = 83
-	tasta "d":	keycode = 68
-	tasta "w":	keycode = 87
 codurile sunt puse in ordinea literelor(ordine alfababetica)(a, b, c, d, e etc.)
 
 	<-- COD TASTE -->
-	function keyCode(event) {
+function keyCode(event) {
     var x = event.keyCode;
     if (event.keyCode == 27) {
         alert ("You pressed the Escape key!");

@@ -34,7 +34,7 @@
 					// vector.splice(pozDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
 				};
-				console.log(game.stars.length);
+				//console.log(game.stars.length);
 				// pentru a afisa lungimea vectorilor de stele
 			};
 		}
