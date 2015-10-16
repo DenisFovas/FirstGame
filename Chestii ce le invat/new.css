@@ -1,0 +1,53 @@
+body {
+	padding: 10px;
+	background: #888;
+}
+
+#header {
+	background-color: red;
+}
+
+.logo img {
+	width: 100px;
+	height: auto;
+}
+
+.logo {
+	background-color: #222;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+.navbar {
+	background: #333;
+	color: #58D344;
+	float: left;
+	left: 200px;
+	position: absolute;
+	top: 30px;
+}
+
+.navbar ul{
+	padding: 0;
+}
+
+.navbar ul li {
+	float: left;
+	padding-left: 20px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 11px;
+	list-style-type: none;
+	border: 3px solid white;
+	border-radius: 15%;
+}
+
+.navbar ul a:hover li {
+	background-color: #555;
+}
+
+.navbar ul a li  {
+	color: black;
+}
+

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Primul Joc Browser</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="Style/style.css">
 		<script src="Scripts/js/jquery-1.2.6.min.js"></script>
 		
 	</head>
@@ -11,13 +11,18 @@
 	<body>
 
 		<!-- CANVAS AREA -->
-			<canvas id="background-image" width="400" height="500">Alege alt browser</canvas>
+			<canvas id="background-image" width="400" height="500"  onkeydown = "keyDown(event)" onkeyup = "keyUp(event)">Alege alt browser, unul care accepta HTML 5</canvas>
 			<canvas id="action" width="400" height="500"></canvas>
-		
-		
-		<!-- Aici vor fi scripturile -->
+			
+		<!--  END OF CANVAS AREA -->
+
+		<!-- Imaginea player-ului -->
+			<img id="player" src="Images/Nava_1.png"/>
+
+		<!-- Aici vor fi script-urile -->
 			<script type="text/javascript" src="Scripts/scriptBackground.js"></script>
 
-
+		<!-- Sfarsit zona script-uri -->	
+			
 	</body>
 </html>

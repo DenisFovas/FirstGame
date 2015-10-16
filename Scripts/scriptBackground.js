@@ -9,7 +9,7 @@
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
 
 		// Setez culoarea de fundal: 'negru';
-		game.ctxBackground.fillStyle = "black";
+		game.ctxBackground.fillStyle = "#100";
 		game.ctxBackground.fillRect(0, 0, 400, 500);
 
 
@@ -24,12 +24,12 @@
 			};
 		}
 
-		// Functie care formeaza animatia de miscare
+		// Functie care formeaza animatia de miscare si va elimina toate stelele care nu mai apar pe ecran
 		function updateStars(){
 			addStars(1);
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
-				if (game.stars[i].y < -5) {
+				if (game.stars[i].y < -2) {
 					game.stars.splice(i, 1); // functie care v-a sterge din vectorul cu stele tot ce 
 					// vector.splice(pozDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
@@ -41,7 +41,7 @@
 
 		// Functie care afiseaza stelele pe ecran
 		function showStars(){
-			game.ctxBackground.fillStyle = "black";
+			game.ctxBackground.fillStyle = "#100";
 			game.ctxBackground.fillRect(0, 0, 400, 500);
 			game.ctxBackground.fillStyle = "white";
 			for (var i = 0; i < game.stars.length; i++) {
@@ -61,11 +61,11 @@
 
 		// Functie care porneste animatiile
 		function fundalActiv(){
-			for (var i = 0; i < 100; i++) {
+			for (var i = 0; i < 700; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 400),
 					y: Math.floor(Math.random() * 600),
-					size: Math.random() * 2
+					size: Math.random() * 3
 				});
 			};
 			showStars();
@@ -77,7 +77,7 @@
 	});	
 })();
 
-//functie de aratat animatiile pe 93% din browsere
+//functie de aratat animatiile pe 93% din browserele care suporta HTML 5
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
           window.webkitRequestAnimationFrame ||
@@ -86,6 +86,6 @@ window.requestAnimFrame = (function(){
           window.msRequestAnimationFrame     ||
           function( callback ){
           	// 1000 milisecunde = 1 secunda; "/ x" <=> xfps
-            window.setTimeout(callback, 1000 / 20); 
+            window.setTimeout(callback, 1000 / 60); 
           };
 })();

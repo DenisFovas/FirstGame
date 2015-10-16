@@ -10,7 +10,7 @@ Idei:
 			# Gimp = mod de a face pixel art pentru GameArt-ul jocului
 				& Creare un inamic, se va repeta pe tot parcursul jocului
 				& Necesitate de a face inamicul mai mare decat jucatorul
-				$ Un inamic realizat (Inamic_1.jpg)
+					$ Un inamic realizat (Inamic_1.jpg)
 		@ Implementeaza imaginile
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite
@@ -46,6 +46,8 @@ Idei:
 													 inamici
 													 viteza
 													 etc.
+			# Shop-ul va fi din baze de date.
+				& Studiaza baze de date pentru a analiza exact ce si cum se va lucra pentru itemele cumparate.
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
 		@ Tutorial bun
 			# Acesta va avea putin text
@@ -63,18 +65,20 @@ Studiat:
 	~ Algoritm taste, miscarea navei
 	~ Algortim repetitiv miscare inamici
 	~ Algoritm schimbare fundal
-	~ Algoritm mini-game pentru combustibil, studiu joc open source: sprite-animation-demos-1 din folderul ProgramareWeb
+	~ Algoritm mini-game pentru combustibil
+	~ Studiu joc open source: sprite-animation-demos-1 din folderul ProgramareWeb
 	~ Studiu implementari joc
 	~ Web hosting
-	~ NodeJS
+	~ NodeJS ???
+	~ Baze de date
 
 
 Resurse:
 	~ http://www.williammalone.com/articles/
 	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
 	~ http://www.ajaxblender.com/howto-resize-image-proportionally-using-javascript.html
-	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6	//image playlist
-	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER	//playlist canvas
+	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6	// image playlist
+	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER	// playlist canvas
 	~ http://www.masswerk.at/JavaPac/pacman-howto.html
 	~ http://www.policyalmanac.org/games/aStarTutorial.htm
 	~ https://en.wikipedia.org/wiki/Flood_fill

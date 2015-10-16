@@ -1,0 +1,19 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+canvas {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	
+}
+
+#player {
+	position: relative;
+	left: 150px;
+	top: 430px;
+	width: 60px;
+	height: auto;
+}

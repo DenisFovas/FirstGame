@@ -2,20 +2,25 @@
   <head>
     <script type='text/javascript'>
 
-      var player = {};
+    var player = {};
 
     // Status initial
-    var xpos = 100;
-    var ypos = 100;
-    var xspeed = 1;
-    var yspeed = 0;
-    var maxSpeed = 5;
+    player.X = 100;
+    player.Y = 100;
+    player.vitezaX = 1;
+    player.vitezaY = 0;
+    player.vitezaMaxima = 5;
 
     // boundary
+    // Setez marginea maxima a ecranului
+
     var minx = 0;
     var miny = 0;
     var maxx = 445; // 10 pixels for character's width
     var maxy = 445; // 10 pixels for character's width
+
+    // spatiu in care nu trebuie sa il depasim 
+    // acest spatiu este (latimea ecranului - marimea imaginii)
 
     // controller vars
     var upPressed = 0;
@@ -23,47 +28,53 @@
     var leftPressed = 0;
     var rightPressed = 0;
 
+
+    // inceput functii de viteza
     function slowDownX()
     {
-      if (xspeed > 0)
-        xspeed = xspeed - 1;
-      if (xspeed < 0)
-        xspeed = xspeed + 1;
+      if (player.vitezaX > 0)
+        player.vitezaX = player.vitezaX - 1;
+      if (player.vitezaX < 0)
+        player.vitezaX = player.vitezaX + 1;
     }
 
     function slowDownY()
     {
-      if (yspeed > 0)
-        yspeed = yspeed - 1;
-      if (yspeed < 0)
-        yspeed = yspeed + 1;
+        if (player.vitezaY > 0)
+            player.vitezaY = player.vitezaY - 1;
+        if (player.vitezaY < 0)
+            player.vitezaY = player.vitezaY + 1;
     }
 
-    function gameLoop()
-    {
+    // sfarsit functii viteza
+
+
+
+    function gameLoop(){
       // change position based on speed
-      xpos = Math.min(Math.max(xpos + xspeed,minx),maxx);
-      ypos = Math.min(Math.max(ypos + yspeed,miny),maxy);
+      // schimb pozitia dupa un algoritm care nu il inteleg.
+      player.X = Math.min(Math.max(player.X + player.vitezaX,minx),maxx);
+      player.Y = Math.min(Math.max(player.Y + player.vitezaY,miny),maxy);
 
       // or, without boundaries:
-      // xpos = xpos + xspeed; 
-      // ypos = ypos + yspeed;
+      // player.X = player.X + player.vitezaX; 
+      // player.Y = player.Y + player.vitezaY;
 
       // change actual position
-      document.getElementById('character').style.left = xpos;
-      document.getElementById('character').style.top = ypos;
+      document.getElementById('character').style.left = player.X;
+      document.getElementById('character').style.top = player.Y;
 
       // VITEZA
 
       // change speed based on keyboard events
       if (upPressed == 1)
-        yspeed = Math.max(yspeed - 1,-1*maxSpeed);
+        player.vitezaY = Math.max(player.vitezaY - 1,-1*player.vitezaMaxima);
       if (downPressed == 1)
-        yspeed = Math.min(yspeed + 1,1*maxSpeed)
+        player.vitezaY = Math.min(player.vitezaY + 1,1*player.vitezaMaxima)
       if (rightPressed == 1)
-        xspeed = Math.min(xspeed + 1,1*maxSpeed);
+        player.vitezaX = Math.min(player.vitezaX + 1,1*player.vitezaMaxima);
       if (leftPressed == 1)
-        xspeed = Math.max(xspeed - 1,-1*maxSpeed);
+        player.vitezaX = Math.max(player.vitezaX - 1,-1*player.vitezaMaxima);
 
       // SCADEREA VITEZEI
 
@@ -77,9 +88,10 @@
       setTimeout("gameLoop()",10);
     }
 
-    function keyDown(e)
-    {
+    //cod pentru taste, ficare v-a face o actiune in functie de ce anume se va apasa
+    function keyDown(e){
       var code = e.keyCode ? e.keyCode : e.which;
+      
       if (code == 38)
         upPressed = 1;
       if (code == 40)
@@ -90,9 +102,9 @@
         rightPressed = 1;
     }
 
-    function keyUp(e)
-    {
+    function keyUp(e){
       var code = e.keyCode ? e.keyCode : e.which;
+      
       if (code == 38)
         upPressed = 0;
       if (code == 40)
@@ -114,7 +126,7 @@
        </div>
 
        <!-- The Character -->
-       <img id='character' src='Images/Inamic_1.png' style='position:absolute;left:100;top:100;height:50;width:50;'/>
+       <img id='character' src='Images/Inamic_1.png' style='position: absolute; left: 100; top: 100; height: 50; width: 50;'/>
 
     </body>
 
