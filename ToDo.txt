@@ -6,12 +6,12 @@ Idei:
 				& V-a fi complet random, de cum incepe ecranul
 				& Rezolvat problema cu lag la stele
 		$ Creaza nava principala(cea a ucatorului) 
-		@ Creaza inamicii
+		$ Creaza inamicii
 			# Gimp = mod de a face pixel art pentru GameArt-ul jocului
 				& Creare un inamic, se va repeta pe tot parcursul jocului
 				& Necesitate de a face inamicul mai mare decat jucatorul
 					$ Un inamic realizat (Inamic_1.jpg)
-		@ Implementeaza imaginile
+		$ Implementeaza imaginile
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite
 				& Resize in functie de ecran
@@ -25,7 +25,6 @@ Idei:
 		@ Algoritm care va misca inamicii (stanga, dreapta)/(random)
 		@ Creaza meteorit(inamicMeteorit) care v-a aparea la un nivel si v-a trebui ca nava principala sa ii fereasca
 		@ Algoritm care va lansa random pe ecran inamicMeteorit pe coordonata x=Math.random, y=-10, si coordonata y v-a creste pana iese de pe ecran, deodata cu o constanta care v-a fi adaugata lui x
-		@ Atacurile vor fi bazate pe ctx.beginPath, ctx.lineTo, ctx.stroke.
 		@ Scorul pentru a trece la nivelul urmator trebuie setat
 			# Posibil un scor de 3000 pentru NextLevel();
 		@ Exista "combustibil"

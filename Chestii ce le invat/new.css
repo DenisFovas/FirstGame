@@ -85,6 +85,6 @@ body {
 
 #footer {
 	bottom: 0;
-	left: 49%;
 	color: white;
+	background-color: red;
 }
