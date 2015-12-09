@@ -2,15 +2,42 @@
 	$(document).ready(function(){
 		var game = {};
 
-
+		// setiings for start
 		game.width = 400;
 		game.height = 500;
+
+		// Stele (fundal)
 		game.stars = [];
 
+		// Inamici
+		game.enemies = [];
+
+		// imagini
 		game.images = [];
 		game.imaginiNecesare = 0;
 		game.imaginiIncarcate = 0;
 
+		// Key
+		game.keys = [];
+
+		// Player
+		game.player = {
+			x: game.width * 0.37 + 25,
+			y: game.height - (game.height * 0.2),
+			width: 60,
+			height: 60,
+			speed: 2
+		};
+
+		// SINTAXA PENTRU TASTE
+		// folosesc jQuery deoarece este mai usor, si mai eficient decat un cod js
+		$(document).keydown(function(e){
+			game.keys[e.keyCode ? e.keyCode : e.which] = true;
+		});
+
+		$(document).keyup(function(e){
+			delete game.keys[e.keyCode ? e.keyCode : e.which];
+		});
 
 		// "Culeg" contextul prin care o sa lucrez
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
@@ -19,12 +46,21 @@
 		// Setez culoarea de fundal: 'negru';
 		game.ctxBackground.fillStyle = "#100";
 		game.ctxBackground.fillRect(0, 0, game.width, game.height);
+		// loading time (in caz ca am imagini multe)
 		game.ctxBackground.font = "bold 50px Arial";
 		game.ctxBackground.fillStyle = "white";
 		game.ctxBackground.fillText("Loading", 100, 200);
 
+
+
+		/* 
+			FUNCTIILE NECESARE
+		*/
+
 		// Functie de a adauga datele "stelelor"
-		function addStars(numar){
+		function initializare(numar){
+
+			//stars
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 390),
@@ -32,12 +68,26 @@
 					size: Math.random() * 3
 				});
 			};
+
+			// enemies
+			for (var i = 0; i < 5; i++) {
+				for (var j = 0; j < 5; j++) {
+					game.enemies.push({
+						x: (i * 70),
+						y: (j * 70),
+						size: 60,
+						image: 1
+					});
+				};
+			};
 		}
 
 		// Functie care formeaza animatia de miscare si va elimina
 		// toate stelele care nu mai apar pe ecran
-		function updateStars(){
-			addStars(1);
+		function updateData(){
+			
+			// stars
+			initializare(1);
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
 				if (game.stars[i].y < -1) {
@@ -48,10 +98,26 @@
 				//console.log(game.stars.length);
 				// pentru a afisa lungimea vectorilor de stele
 			};
-		}
+
+			// player movement
+			if (game.keys[37] || game.keys[65]) { // stanga
+				if(game.player.x > 0) {
+					game.player.x -= game.player.speed;
+				}
+
+			};
+			if (game.keys[39] || game.keys[68]) { // dreapta
+				if(game.player.x < (game.width - game.player.width)){
+					game.player.x += game.player.speed;
+				}
+			};
+		}	
+
 
 		// Functie care afiseaza stelele pe ecran
-		function showStars(){
+		function renderScreen(){
+
+			// stars
 			//game.ctxBackground.clearRect(0, 0, game.width, game.height);
 			game.ctxBackground.fillStyle = "black";
 			game.ctxBackground.fillRect(0, 0, game.width, game.height);
@@ -60,14 +126,23 @@
 				var stea = game.stars[i];
 				game.ctxBackground.fillRect(stea.x, stea.y, stea.size, stea.size);
 			};
+
+			// player
+			game.ctxAction.clearRect(game.player.x, game.player.y, game.player.width, game.player.height);
+			game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
+		
+			for (i in game.enemies){
+				game.ctxAction.drawImage(game.images[game.enemies[i].image], game.enemies[i].x, game.enemies[i].y, game.enemies[i].size, game.enemies[i].size);
+			}
+
 		}
 
 		// Functie care animeaza totul
-		function animeazaFundal(){
+		function showScreen(){
 			requestAnimFrame(function(){
-				updateStars();
-				showStars();
-				animeazaFundal();
+				updateData();
+				renderScreen();
+				showScreen();
 			});
 		}
 
@@ -80,11 +155,8 @@
 					size: Math.random() * 3
 				});
 			};
-			//pozitionare player si afisarea lui pe ecran
-			game.ctxAction.drawImage(game.images[0], game.width/2 - 25, (game.height-(game.height/10)), 50, 50);
-
 			// porneste animatia continua
-			animeazaFundal();
+			showScreen();
 		}
 
 		// functie care va incarca imaginile necesare pentru joc
@@ -104,7 +176,7 @@
 
 		//functie de a verifica daca s-au incarcat imaginile necesare si
 		// se asigura ca avem icnarcate toate imaginile
-		function verificareImagini(){
+		function startGame(){
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
 				// Pornesc animatiile de fundal
 				animareFundal();
@@ -112,7 +184,7 @@
 			else
 				{
 					setTimeout(function(){
-						verificareImagini();
+						startGame();
 					}, 10)
 				};
 
@@ -120,7 +192,9 @@
 
 		// Incarc imaginile
 		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png"]);
-		verificareImagini();
+		// verific imaginile.
+		// daca sunt incarcate atunci o sa se poata porni jocul
+		startGame();
 	});	
 })();
 
