@@ -15,11 +15,11 @@ Idei:
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite
 				& Resize in functie de ecran
-		@ Algortim de aflare taste 
+		$ Algortim de aflare taste 
 			# probaTaste.html => contine informatii legate de exact tastele, folosirea lor in cadrul apasarii cat si un mod de a alege exact tasta potrivita pentru actiune
 			# Realizat un mod de a crea alerte cand tastam ceva.
 			# Urmeaza creare unui algoritm in care putem sa miscam un obiect
-		@ Algortim de miscare a imaginilor in functie de taste
+		$ Algortim de miscare a imaginilor in functie de taste
 			# "onkeydown" se misca nava in functie de tasta apasata
 			# "onkeyup" se opreste din miscare
 		@ Algoritm care va misca inamicii (stanga, dreapta)/(random)
@@ -48,6 +48,8 @@ Idei:
 			# Shop-ul va fi din baze de date.
 				& Studiaza baze de date pentru a analiza exact ce si cum se va lucra pentru itemele cumparate.
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
+		
+
 		@ Tutorial bun
 			# Acesta va avea putin text
 			# Primul boss, cel mai usor va fi cel de introducere
@@ -55,6 +57,15 @@ Idei:
 			# Apoi introducem inamicii pe rand
 			# Apoi la final combustibil
 			# Apoi shop
+	
+
+	Imbunatatiri
+		@ Idem inamici
+			$ Creez canvas pentru inamici
+			# Totul se va randa, doar la miscari ??
+			# Trebuie sa fac in asa fel incat sa nu fie randate prea des 
+			# In updateData voi face algoritmul ca inamicii sa se miste stanga dreapta
+		~ Cauta moduri de a face mai eficient pentru procesor
 
 		@ Story ??
 			# Folosire de nume mitologice pentru a atrage oamenii, ai face intrigati de poveste
@@ -62,8 +73,11 @@ Idei:
 
 Studiat:
 	~ Algoritm taste, miscarea navei
+		@ jQuery
 	~ Algortim repetitiv miscare inamici
+		@ Repetare stanga dreapta
 	~ Algoritm schimbare fundal
+		@ ??
 	~ Algoritm mini-game pentru combustibil
 	~ Studiu joc open source: sprite-animation-demos-1 din folderul ProgramareWeb
 	~ Studiu implementari joc
@@ -76,8 +90,8 @@ Resurse:
 	~ http://www.williammalone.com/articles/
 	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
 	~ http://www.ajaxblender.com/howto-resize-image-proportionally-using-javascript.html
-	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6	// image playlist
-	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER	// playlist canvas
+	~ https://www.youtube.com/watch?v=sPNR-c0lv-U&list=PLMrhHAlJwf0OrxJeGBlj8P0JyVFcU0is5&index=6		// image playlist
+	~ https://www.youtube.com/watch?v=OsFuYEK4RnI&index=6&list=PLQw6R3B2BPb29ktkWaiIzB3JBWguN7bER		// playlist canvas
 	~ http://www.masswerk.at/JavaPac/pacman-howto.html
 	~ http://www.policyalmanac.org/games/aStarTutorial.htm
 	~ https://en.wikipedia.org/wiki/Flood_fill
@@ -87,7 +101,7 @@ Resurse:
 	~ https://www.youtube.com/watch?v=YCI8uqePkrc // tutorial particule
 	~ http://www.w3schools.com/jsref/event_onkeydown.asp
 	~ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
-	~ http://stackoverflow.com/questions/3476000/javascript-key-handling-and-browser-compatibility	//taste
+	~ http://stackoverflow.com/questions/3476000/javascript-key-handling-and-browser-compatibility		//taste
 	~ http://stackoverflow.com/questions/15344104/smooth-character-movement-in-canvas-game-using-keyboard-controls // pentru a identifica tastele
 	~ https://www.youtube.com/playlist?list=PLoYCgNOIyGACnrXwo5HMCfOH9VT05znGv
 		// playlist pentru a intelege JavaScript + Jquery

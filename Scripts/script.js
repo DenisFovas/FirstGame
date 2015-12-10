@@ -11,6 +11,8 @@
 
 		// Inamici
 		game.enemies = [];
+		game.numarInamiciPeLinie = 5;
+		game.numarInamiciPeColoana = 5;
 
 		// imagini
 		game.images = [];
@@ -26,7 +28,8 @@
 			y: game.height - (game.height * 0.2),
 			width: 60,
 			height: 60,
-			speed: 2
+			speed: 2,
+			miscare: false
 		};
 
 		// SINTAXA PENTRU TASTE
@@ -42,6 +45,7 @@
 		// "Culeg" contextul prin care o sa lucrez
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
 		game.ctxAction = document.getElementById("action").getContext("2d");
+		game.ctxInamici = document.getElementById("inamici").getContext("2d");
 
 		// Setez culoarea de fundal: 'negru';
 		game.ctxBackground.fillStyle = "#100";
@@ -60,7 +64,7 @@
 		// Functie de a adauga datele "stelelor"
 		function initializare(numar){
 
-			//stars
+			// Stars
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 390),
@@ -69,9 +73,9 @@
 				});
 			};
 
-			// enemies
-			for (var i = 0; i < 5; i++) {
-				for (var j = 0; j < 5; j++) {
+			// Enemies
+			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
+				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
 					game.enemies.push({
 						x: (i * 70),
 						y: (j * 70),
@@ -80,13 +84,16 @@
 					});
 				};
 			};
+
+			// Arata player inital
+			game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
 		}
 
 		// Functie care formeaza animatia de miscare si va elimina
 		// toate stelele care nu mai apar pe ecran
 		function updateData(){
 			
-			// stars
+			// Stars
 			initializare(1);
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
@@ -99,18 +106,25 @@
 				// pentru a afisa lungimea vectorilor de stele
 			};
 
-			// player movement
-			if (game.keys[37] || game.keys[65]) { // stanga
-				if(game.player.x > 0) {
-					game.player.x -= game.player.speed;
-				}
 
-			};
-			if (game.keys[39] || game.keys[68]) { // dreapta
-				if(game.player.x < (game.width - game.player.width)){
-					game.player.x += game.player.speed;
-				}
-			};
+			// Player Movement
+
+				// Stanga
+				if (game.keys[37] || game.keys[65]) { 
+					if(game.player.x > 0) {
+						game.player.x -= game.player.speed;
+						game.player.miscare = true;
+					}
+
+				};
+
+				// Dreapta
+				if (game.keys[39] || game.keys[68]) { 
+					if(game.player.x < (game.width - game.player.width)){
+						game.player.x += game.player.speed;
+						game.player.miscare = true;
+					}
+				};
 		}	
 
 
@@ -126,14 +140,19 @@
 				var stea = game.stars[i];
 				game.ctxBackground.fillRect(stea.x, stea.y, stea.size, stea.size);
 			};
-
+ 
 			// player
-			game.ctxAction.clearRect(game.player.x, game.player.y, game.player.width, game.player.height);
-			game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
-		
-			for (i in game.enemies){
-				game.ctxAction.drawImage(game.images[game.enemies[i].image], game.enemies[i].x, game.enemies[i].y, game.enemies[i].size, game.enemies[i].size);
-			}
+			if (game.player.miscare === true) {
+				game.ctxAction.clearRect(game.player.x, game.player.y, game.player.width, game.player.height);
+				game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
+				game.player.miscare = false;
+			};
+
+			// inamici
+			for (i in game.enemies) {
+				var inamic = game.enemies[i];
+					game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.size, inamic.size);
+			};
 
 		}
 
