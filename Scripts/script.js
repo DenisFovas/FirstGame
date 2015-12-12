@@ -140,6 +140,7 @@
 					x: (game.player.x + (game.player.width / 2)),
 					y: (game.player.y + 10),
 					size: 10,
+					speed: 2,
 					image: 2
 				});
 			};
@@ -164,7 +165,7 @@
 			}
 
 			for (i in game.proiectilPlayer){
-				game.proiectilPlayer[i].y--;
+				game.proiectilPlayer[i].y -= game.proiectilPlayer[i].speed;
 			};
 
 		}	
@@ -201,8 +202,9 @@
 			// Proiectil Player - arata pana spre sus
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
+				game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size + 10, bullet.size + 10);
 				game.ctxInamici.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
-				//game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
+				
 			};
 
 
