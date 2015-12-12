@@ -62,9 +62,9 @@ Idei:
 	Imbunatatiri
 		@ Idem inamici
 			$ Creez canvas pentru inamici
-			# Totul se va randa, doar la miscari ??
-			# Trebuie sa fac in asa fel incat sa nu fie randate prea des 
-			# In updateData voi face algoritmul ca inamicii sa se miste stanga dreapta
+			$ Problema era ca se creau locatiile in functie initiala prea des
+				$ Acum la apelarea functiei formareInamici din cadrul functiei startGame se
+				formeaza datele necesare, doar odata fiind apelate.
 		~ Cauta moduri de a face mai eficient pentru procesor
 
 		@ Story ??
@@ -74,6 +74,7 @@ Idei:
 Studiat:
 	~ Algoritm taste, miscarea navei
 		@ jQuery
+		$ DONE
 	~ Algortim repetitiv miscare inamici
 		@ Repetare stanga dreapta
 	~ Algoritm schimbare fundal

@@ -67,7 +67,7 @@
 				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
 					game.enemies.push({
 						x: ((i * 70) + (game.width / 20)),
-						y: (j * 70),
+						y: (j * 60),
 						width: 60,
 						height: 60, 
 						image: 1
@@ -102,8 +102,8 @@
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
 				if (game.stars[i].y < -1) {
-					game.stars.splice(i, 1); // functie care v-a sterge din vectorul cu stele tot ce 
-					// vector.splice(pozDePeCareStergem, nrElementeSterse)
+					game.stars.splice(i, 1); // functie care v-a sterge din vectorul stele totul 
+					// vector.splice(pozitiaDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
 				};
 				//console.log(game.stars.length);
