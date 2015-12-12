@@ -35,6 +35,8 @@
 			speed: 2,
 			miscare: false
 		};
+		// Proiectil Player
+		game.proiectilPlayer = [];
 
 		// SINTAXA PENTRU TASTE
 		// folosesc jQuery deoarece este mai usor, si mai eficient decat un cod js
@@ -117,40 +119,54 @@
 
 			// Player Movement
 
-				// Stanga
-				if (game.keys[37] || game.keys[65]) { 
-					if(game.player.x > 0) {
-						game.player.x -= game.player.speed;
-						game.player.miscare = true;
-					}
-
-				};
-
-				// Dreapta
-				if (game.keys[39] || game.keys[68]) { 
-					if(game.player.x < (game.width - game.player.width)){
-						game.player.x += game.player.speed;
-						game.player.miscare = true;
-					}
-				};
-
-				// Miscare Inamici
-				game.contorInamici++;
-				if (game.contorInamici % game.contorTimpMaximInamici == 0) {
-					// Pun opusul directiei de mers
-					game.deplasareInamicStanga = !game.deplasareInamicStanga;
-				};
-
-				for(i in game.enemies)
-				{
-					if (game.deplasareInamicStanga) {
-						game.enemies[i].x -= game.enemySpeed; 
-					} 
-					else
-					{	
-						game.enemies[i].x += game.enemySpeed;
-					};
+			// Stanga
+			if (game.keys[37] || game.keys[65]) { 
+				if(game.player.x > 0) {
+					game.player.x -= game.player.speed;
+					game.player.miscare = true;
 				}
+			};
+
+			// Dreapta
+			if (game.keys[39] || game.keys[68]) { 
+				if(game.player.x < (game.width - game.player.width)){
+					game.player.x += game.player.speed;
+					game.player.miscare = true;
+				}
+			};
+
+			if (game.keys[32]) {
+				game.proiectilPlayer.push({
+					x: (game.player.x + (game.player.width / 2)),
+					y: (game.player.y + 10),
+					size: 10,
+					image: 2
+				});
+			};
+
+
+			// Miscare Inamici cu ajutorul unui contor(ceas) improvizat
+			game.contorInamici++;
+			if (game.contorInamici % game.contorTimpMaximInamici == 0) {
+				// Pun opusul directiei de mers
+				game.deplasareInamicStanga = !game.deplasareInamicStanga;
+			};
+
+			// Deplasarea efectiva a inamicilor
+			for(i in game.enemies){
+				if (game.deplasareInamicStanga) {
+					game.enemies[i].x -= game.enemySpeed; 
+				} 
+				else
+				{	
+					game.enemies[i].x += game.enemySpeed;
+				};
+			}
+
+			for (i in game.proiectilPlayer){
+				game.proiectilPlayer[i].y--;
+			};
+
 		}	
 
 
@@ -174,14 +190,21 @@
 				game.player.miscare = false;
 			};
 
-			
 
 			// inamici
-			game.ctxInamici.clearRect(0, 0, game.width, game.height);
 			for (i in game.enemies) {
 				var inamic = game.enemies[i];
+				game.ctxInamici.clearRect(inamic.x, inamic.y, inamic.width, inamic.height);
 				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
 			};
+
+			// Proiectil Player - arata pana spre sus
+			for(i in game.proiectilPlayer) {
+				var bullet = game.proiectilPlayer[i];
+				game.ctxInamici.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
+				//game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
+			};
+
 
 		}
 
