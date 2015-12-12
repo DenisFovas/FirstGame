@@ -13,6 +13,10 @@
 		game.enemies = [];
 		game.numarInamiciPeLinie = 5;
 		game.numarInamiciPeColoana = 5;
+		game.contorInamici = ((game.width / 8) / 2);
+		game.contorTimpMaximInamici = (game.width / 8);
+		game.deplasareInamicStanga = true;
+		game.enemySpeed = 1;
 
 		// imagini
 		game.images = [];
@@ -129,6 +133,24 @@
 						game.player.miscare = true;
 					}
 				};
+
+				// Miscare Inamici
+				game.contorInamici++;
+				if (game.contorInamici % game.contorTimpMaximInamici == 0) {
+					// Pun opusul directiei de mers
+					game.deplasareInamicStanga = !game.deplasareInamicStanga;
+				};
+
+				for(i in game.enemies)
+				{
+					if (game.deplasareInamicStanga) {
+						game.enemies[i].x -= game.enemySpeed; 
+					} 
+					else
+					{	
+						game.enemies[i].x += game.enemySpeed;
+					};
+				}
 		}	
 
 
@@ -155,6 +177,7 @@
 			
 
 			// inamici
+			game.ctxInamici.clearRect(0, 0, game.width, game.height);
 			for (i in game.enemies) {
 				var inamic = game.enemies[i];
 				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
@@ -214,7 +237,6 @@
 						startGame();
 					}, 60)
 				};
-
 		}
 
 		// Incarc imaginile
