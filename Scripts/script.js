@@ -26,8 +26,8 @@
 		game.player = {
 			x: game.width * 0.37 + 25,
 			y: game.height - (game.height * 0.2),
-			width: 60,
-			height: 60,
+			width: 70,
+			height: 70,
 			speed: 2,
 			miscare: false
 		};
@@ -42,7 +42,7 @@
 			delete game.keys[e.keyCode ? e.keyCode : e.which];
 		});
 
-		// "Culeg" contextul prin care o sa lucrez
+		// "Culeg" contextul prin care o sa lucrez pentru Backgound, Action(player), Inamici
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
 		game.ctxAction = document.getElementById("action").getContext("2d");
 		game.ctxInamici = document.getElementById("inamici").getContext("2d");
@@ -61,6 +61,22 @@
 			FUNCTIILE NECESARE
 		*/
 
+		function formareInamici(){
+			// Enemies
+			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
+				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
+					game.enemies.push({
+						x: ((i * 70) + (game.width / 20)),
+						y: (j * 70),
+						width: 60,
+						height: 60, 
+						image: 1
+					});
+				};
+			};
+		}
+
+
 		// Functie de a adauga datele "stelelor"
 		function initializare(numar){
 
@@ -71,18 +87,6 @@
 					y: 499,
 					size: Math.random() * 3
 				});
-			};
-
-			// Enemies
-			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
-				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
-					game.enemies.push({
-						x: (i * 70),
-						y: (j * 70),
-						size: 60,
-						image: 1
-					});
-				};
 			};
 
 			// Arata player inital
@@ -148,10 +152,12 @@
 				game.player.miscare = false;
 			};
 
+			
+
 			// inamici
 			for (i in game.enemies) {
 				var inamic = game.enemies[i];
-					game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.size, inamic.size);
+				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
 			};
 
 		}
@@ -167,6 +173,7 @@
 
 		// Functie care porneste animatiile, cu tot cu pornirea paginii
 		function animareFundal(){
+			// porneste stele pentru inceput
 			for (var i = 0; i < 500; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 390),
@@ -198,13 +205,14 @@
 		function startGame(){
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
 				// Pornesc animatiile de fundal
+				formareInamici();
 				animareFundal();
 			}
 			else
 				{
 					setTimeout(function(){
 						startGame();
-					}, 10)
+					}, 60)
 				};
 
 		}
