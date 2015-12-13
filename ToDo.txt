@@ -51,10 +51,6 @@ Idei:
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
 		
 
-		@ Proiectilele nu se sterg de pe ecran
-			# Un nou canvas?
-			# Verificare cod?
-
 		@ Tutorial bun
 			# Acesta va avea putin text
 			# Primul boss, cel mai usor va fi cel de introducere
@@ -65,13 +61,15 @@ Idei:
 	
 
 		@ Story ??
-			# Folosire de nume mitologice pentru a atrage oamenii, ai face intrigati de poveste
+			# Folosire de nume mitologice pentru a atrage oamenii, sa fie intrigati de poveste
 
 
 Studiat:
 	~ Algoritm taste, miscarea navei
 		@ jQuery
 		$ DONE
+			$ Miscarea navei este prin intermediul jQuery
+			$ Modul prin care se face lansarea 'gloantelor' este prin crearea lor, apoi prin stergerea 'urmelor' lor, de la coordonatele lor, pana la dimensiunea canvas-ului lor propriu
 	~ Algortim repetitiv miscare inamici
 		@ Repetare stanga dreapta
 		$ DONE

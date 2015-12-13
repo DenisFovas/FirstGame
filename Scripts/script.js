@@ -210,8 +210,8 @@
 			// Proiectil Player - arata pana spre sus
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
-				game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
-				game.ctxInamici.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
+				game.ctxBullet.clearRect(bullet.x, bullet.y, game.width, game.height);
+				game.ctxBullet.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
 				//game.ctxBullet.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 			};
 		}
