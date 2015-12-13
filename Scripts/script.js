@@ -54,6 +54,7 @@
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
 		game.ctxAction = document.getElementById("action").getContext("2d");
 		game.ctxInamici = document.getElementById("inamici").getContext("2d");
+		game.ctxBullet = document.getElementById("bullet").getContext("2d");
 
 		// Setez culoarea de fundal: 'negru';
 		game.ctxBackground.fillStyle = "#100";
@@ -140,9 +141,8 @@
 			// Player bullet
 			if (game.contorInitialProiectil > 0) {
 				game.contorInitialProiectil--;
-			} else {
-				game.contorInitialProiectil = game.contorFinalProiectil;
 			};
+
 			if (game.keys[32] && game.contorInitialProiectil <= 0) {
 				game.proiectilPlayer.push({
 					x: (game.player.x + (game.player.width / 2) - 5),
@@ -151,6 +151,7 @@
 					speed: 5,
 					image: 2
 				});
+				game.contorInitialProiectil = game.contorFinalProiectil;
 			};
 
 
@@ -172,7 +173,7 @@
 				};
 			}
 
-			for (i in game.proiectilPlayer){
+			for (i in game.proiectilPlayer) { 
 				game.proiectilPlayer[i].y -= game.proiectilPlayer[i].speed;
 			};
 
@@ -183,7 +184,6 @@
 		function renderScreen(){
 
 			// stars
-			//game.ctxBackground.clearRect(0, 0, game.width, game.height);
 			game.ctxBackground.fillStyle = "black";
 			game.ctxBackground.fillRect(0, 0, game.width, game.height);
 			game.ctxBackground.fillStyle = "white";
@@ -212,16 +212,16 @@
 				var bullet = game.proiectilPlayer[i];
 				game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 				game.ctxInamici.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
+				//game.ctxBullet.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 			};
-
-
 		}
 
 		// Functie care animeaza totul
 		function showScreen(){
 			requestAnimFrame(function(){
+								renderScreen();
 				updateData();
-				renderScreen();
+
 				showScreen();
 			});
 		}

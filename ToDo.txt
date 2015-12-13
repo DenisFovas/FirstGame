@@ -51,6 +51,10 @@ Idei:
 			# Se vor cumpara prin intermediul acelui mini-game cu monede, o parte fiind pentru conbustibil + munitie, restul fiind folositi la cumparari
 		
 
+		@ Proiectilele nu se sterg de pe ecran
+			# Un nou canvas?
+			# Verificare cod?
+
 		@ Tutorial bun
 			# Acesta va avea putin text
 			# Primul boss, cel mai usor va fi cel de introducere
