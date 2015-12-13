@@ -175,6 +175,9 @@
 
 			for (i in game.proiectilPlayer) { 
 				game.proiectilPlayer[i].y -= game.proiectilPlayer[i].speed;
+				if (game.proiectilPlayer[i].y < -(game.proiectilPlayer[i].size + game.height/100)) {
+					game.proiectilPlayer.splice(i, 1);
+				};
 			};
 
 		}	
