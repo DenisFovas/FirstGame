@@ -22,7 +22,8 @@ Idei:
 		$ Algortim de miscare a imaginilor in functie de taste
 			# "onkeydown" se misca nava in functie de tasta apasata
 			# "onkeyup" se opreste din miscare
-		@ Algoritm care va misca inamicii (stanga, dreapta)/(random)
+		$ Algoritm care va misca inamicii (stanga, dreapta)/(random)
+			# Un timer improvizat asigura miscarea permanenta a inamicilor
 		@ Creaza meteorit(inamicMeteorit) care v-a aparea la un nivel si v-a trebui ca nava principala sa ii fereasca
 		@ Algoritm care va lansa random pe ecran inamicMeteorit pe coordonata x=Math.random, y=-10, si coordonata y v-a creste pana iese de pe ecran, deodata cu o constanta care v-a fi adaugata lui x
 		@ Scorul pentru a trece la nivelul urmator trebuie setat
@@ -58,14 +59,6 @@ Idei:
 			# Apoi la final combustibil
 			# Apoi shop
 	
-
-	Imbunatatiri
-		@ Idem inamici
-			$ Creez canvas pentru inamici
-			$ Problema era ca se creau locatiile in functie initiala prea des
-				$ Acum la apelarea functiei formareInamici din cadrul functiei startGame se
-				formeaza datele necesare, doar odata fiind apelate.
-		~ Cauta moduri de a face mai eficient pentru procesor
 
 		@ Story ??
 			# Folosire de nume mitologice pentru a atrage oamenii, ai face intrigati de poveste

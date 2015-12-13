@@ -37,6 +37,8 @@
 		};
 		// Proiectil Player
 		game.proiectilPlayer = [];
+		game.contorFinalProiectil = 12;
+		game.contorInitialProiectil = game.contorFinalProiectil;
 
 		// SINTAXA PENTRU TASTE
 		// folosesc jQuery deoarece este mai usor, si mai eficient decat un cod js
@@ -135,12 +137,18 @@
 				}
 			};
 
-			if (game.keys[32]) {
+			// Player bullet
+			if (game.contorInitialProiectil > 0) {
+				game.contorInitialProiectil--;
+			} else {
+				game.contorInitialProiectil = game.contorFinalProiectil;
+			};
+			if (game.keys[32] && game.contorInitialProiectil <= 0) {
 				game.proiectilPlayer.push({
-					x: (game.player.x + (game.player.width / 2)),
+					x: (game.player.x + (game.player.width / 2) - 5),
 					y: (game.player.y + 10),
 					size: 10,
-					speed: 2,
+					speed: 5,
 					image: 2
 				});
 			};
@@ -202,9 +210,8 @@
 			// Proiectil Player - arata pana spre sus
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
-				game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size + 10, bullet.size + 10);
+				game.ctxInamici.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 				game.ctxInamici.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
-				
 			};
 
 
