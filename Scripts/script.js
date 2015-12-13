@@ -222,9 +222,8 @@
 		// Functie care animeaza totul
 		function showScreen(){
 			requestAnimFrame(function(){
-								renderScreen();
+				renderScreen();
 				updateData();
-
 				showScreen();
 			});
 		}
@@ -276,6 +275,7 @@
 
 		// Incarc imaginile
 		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png"]);
+		
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
 		startGame();
