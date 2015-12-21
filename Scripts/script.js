@@ -282,7 +282,13 @@
 	});	
 })();
 
-//functie de aratat animatiile pe 93% din browserele care suporta HTML 5
+/**
+ * Aici am o functie care poate sa randeze pe broswere aplicatia.
+ * Totul se bazeaza pe aceasta functie de baza pe care mare parte din browsere o au,
+ * dar am ales sa o mai adaug casa pot sa am o siguranta in plus legat de aceasta chestie.
+ * Astfel orice browser se va folosi, daca este din 2006 sau mai recent,
+ *  se poate folosi pentru aplicatie.
+ */
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
           window.webkitRequestAnimationFrame ||

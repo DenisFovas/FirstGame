@@ -84,6 +84,7 @@ Studiat:
 	~ NodeJS ???
 	~ Baze de date
 
+	
 
 Resurse:
 	~ http://www.williammalone.com/articles/
