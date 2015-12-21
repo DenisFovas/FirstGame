@@ -73,7 +73,8 @@ Studiat:
 	~ Algortim repetitiv miscare inamici
 		@ Repetare stanga dreapta
 		$ DONE
-			$ Am 2 contori. Primul contor reprezinta drumul din stanga spre dreapta. Preferabil este sa fie jumate din al doilea contor. Al doilea contor, este pus ca fiind o parte din ecran, ca sa se poata realiza o miscare a navelor pana la un punct. Apoi navele se vor deplasa in directia opusa.
+			$ Am 2 contori. Primul contor reprezinta drumul din stanga spre dreapta. Preferabil este sa fie jumate din al doilea contor. Al doilea contor, este pus ca fiind o parte din ecran, ca sa se poata realiza o miscare a navelor pana la un punct. Apoi navele se vor deplasa in directia opusa. Problema este, in caz ca jucatorul are un calcuator mai bun, inamicii se vor misca mai rapid fata de alte calculatoare, deoarece se v-a calcula totul mai repede.
+
 	~ Algoritm schimbare fundal
 		@ ??
 	~ Algoritm mini-game pentru combustibil
