@@ -10,6 +10,19 @@
 		 */
 		game.width = 400;
 		game.height = 500;
+		/**
+		 * Variabila care arata ca jocul nu s-a terminat
+		 * @type {Boolean}
+		 */
+		game.over = true;
+		/**
+		 * Variabila care va insemna numarul de secunde in care
+		 * jucatorul are sa treaca nivelul. Aceasta va fi inmultita cu
+		 * 1000 in functia startGame, ca sa redea exact numarul de
+		 * secunde
+		 * @type {Number}
+		 */
+		game.timeOver = 20;
 
 		/**
 		 * Vector care retine pozitiile stelelor, cat si datele lor.
@@ -46,7 +59,10 @@
 		// Key
 		game.keys = [];
 
-		// Player
+		/*==============================
+		=            Player            =
+		==============================*/
+				
 		/**
 		 * dimensiunile / setarile initiale ale jucatorului
 		 * @type {Object}
@@ -59,12 +75,19 @@
 			speed: 2,
 			miscare: false	// folosit pentru a randa player-ul, decat daca se misca.	
 		};
-		// Proiectil Player
+		
+		/*=================================
+		=            Proiectil player     =
+		=================================*/
 		game.proiectilPlayer = [];
-		game.contorFinalProiectil = 12;
+		game.contorFinalProiectil = 30;
 		game.contorInitialProiectil = game.contorFinalProiectil;
 
 
+		/*====================================
+		=            Context Work            =
+		====================================*/
+		
 		// "Culeg" contextul prin care o sa lucrez pentru Backgound, Action(player), Inamici
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
 		game.ctxAction = document.getElementById("action").getContext("2d");
@@ -74,6 +97,11 @@
 		// Setez culoarea de fundal: 'negru';
 		game.ctxBackground.fillStyle = "#100";
 		game.ctxBackground.fillRect(0, 0, game.width, game.height);
+		
+		/**
+		 * Cat timp se va incarca fiecare imagine in parte, afisez un
+		 * "Loading Screen" 
+		 */
 		// loading time (in caz ca am imagini multe)
 		game.ctxBackground.font = "bold 50px Arial";
 		game.ctxBackground.fillStyle = "white";
@@ -176,6 +204,7 @@
 				};
 			}
 
+			// In caz ca proiectilul se afla inafara ecranului, il sterg
 			for (i in game.proiectilPlayer) { 
 				game.proiectilPlayer[i].y -= game.proiectilPlayer[i].speed;
 				if (game.proiectilPlayer[i].y < -(game.proiectilPlayer[i].size + game.height/100)) {
@@ -200,6 +229,10 @@
 				}
 			}
 
+
+			// Arat imaginea Inamic-Explozie.png, folosesc un mic
+			// contor, pentru a arata imaginea, iar dupa expirarea
+			// unui anumit timp, sterg imaginea de pe canvas,
 			for (i in game.enemies){
 				if (game.enemies[i].mort === true) {
 					game.enemies[i].timpMoarte--;
@@ -288,7 +321,7 @@
 						width: 60,
 						height: 60, 
 						mort: false,
-						timpMoarte: 30,
+						timpMoarte: 15,
 						image: 1
 					});
 				};
@@ -354,14 +387,32 @@
 				// Pornesc animatiile de fundal
 				formareInamici();
 				animareFundal();
-			}
-			else
-				{
+			} else {
+				if (game.over !== false) {
 					setTimeout(function(){
 						startGame();
 					}, 60)
-				};
+				}
+			};
 		}
+
+		/**
+		 * Functie care va returna victoria sau infrangerea
+		 * jucatorului in nivelul respectiv
+		 * @return {bool} 
+		 */	
+		function afisareFinala() {
+			if (game.enemies.length <= 0) {
+				return true; // S-a castigat.
+			}
+			else
+			{
+				return false; //S-a pierdut.
+			}
+		}
+
+
+
 
 		/*=====================================================================
 		=            Apelare de functii, pentru a icnepe programul            =
@@ -374,6 +425,10 @@
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
 		startGame();
+
+		setTimeout(function () {
+			console.log(afisareFinala());
+		}, 10 * 1000)
 	});	
 })();
 
