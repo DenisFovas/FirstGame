@@ -11,6 +11,7 @@ Idei:
 				& Creare un inamic, se va repeta pe tot parcursul jocului
 				& Necesitate de a face inamicul mai mare decat jucatorul
 					$ Un inamic realizat (Inamic_1.jpg)
+					$ Creare explozie inamici (Inamic-Explozie.jpg)
 		$ Implementeaza imaginile
 			# Resize imagini (vezi resurse)
 				& In special nava, v-or trebui marite

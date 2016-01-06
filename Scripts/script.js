@@ -86,7 +86,7 @@
 		========================================*/
 
 		// Functie de a adauga datele "stelelor", formeaza player-ul
-		function initializare(numar){
+		function initializare(numar) {
 
 			// Stars
 			for (var i = 0; i < numar; i++) {
@@ -103,7 +103,7 @@
 
 		// Functie care formeaza animatia de miscare si va elimina
 		// toate stelele care nu mai apar pe ecran
-		function updateData(){
+		function updateData() {
 			
 			// Stars
 			initializare(1);
@@ -183,11 +183,38 @@
 				};
 			};
 
+
+			// Verificare daca se afla o coliziune intre proiectil, si
+			// intre inamici.
+			for (contorInamic in game.enemies){
+				for (contorProiectil  in game.proiectilPlayer){
+					if (coliziune(game.enemies[contorInamic], game.proiectilPlayer[contorProiectil])) {
+						game.enemies[contorInamic].mort = true;
+						// Imaginea este Inamic-Explozie.png
+						game.enemies[contorInamic].image = 3;
+						// Oprim proiectulul odata cu o coliziune
+						game.ctxBullet.clearRect(game.proiectilPlayer[contorProiectil].x, game.proiectilPlayer[contorProiectil].y, game.proiectilPlayer[contorProiectil].width + 5, game.proiectilPlayer[contorProiectil].height + 10)
+						game.proiectilPlayer.splice(contorProiectil, 1);
+
+					};
+				}
+			}
+
+			for (i in game.enemies){
+				if (game.enemies[i].mort === true) {
+					game.enemies[i].timpMoarte--;
+				};
+				if (game.enemies[i].mort === true && game.enemies[i].timpMoarte <= 0 ) {
+					game.ctxInamici.clearRect(game.enemies[i].x, game.enemies[i].y, game.enemies[i].width, game.enemies[i].height);
+					game.enemies.splice(i, 1);
+				};
+			}
+
 		}	
 
 
 		// Functie care afiseaza stelele pe ecran
-		function renderScreen(){
+		function renderScreen() {
 
 			// stars
 			game.ctxBackground.fillStyle = "black";
@@ -223,7 +250,7 @@
 		}
 
 		// Functie care animeaza totul
-		function showScreen(){
+		function showScreen() {
 			requestAnimFrame(function(){
 				renderScreen();
 				updateData();
@@ -233,7 +260,7 @@
 
 		// Functie care porneste animatiile, cu tot cu pornirea
 		// paginii
-		function animareFundal(){
+		function animareFundal() {
 			// porneste stele pentru inceput
 			for (var i = 0; i < 500; i++) {
 				game.stars.push({
@@ -247,11 +274,12 @@
 		}
 
 		/**
+		 * Formarea de inamici
 		 * aici formez datele necesare pentru a putea forma inamicii
 		 * functia este folosita initial pentur a incarca inamicii pe
 		 * nivel.
 		 */
-		function formareInamici(){
+		function formareInamici() {
 			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
 				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
 					game.enemies.push({
@@ -259,6 +287,8 @@
 						y: (j * 60),
 						width: 60,
 						height: 60, 
+						mort: false,
+						timpMoarte: 30,
 						image: 1
 					});
 				};
@@ -272,7 +302,7 @@
 		 * @param  {obiect} obiectDoi Al doilea obiect, la care i se
 		 *                            verifica posibila coliziune
 		 * @return {bool} se returneaza true/false in functie de
-		 *                   coliziunea in sine.
+		 *                   coliziunea in sine, dintre obiecte
 		 */
 		function coliziune(obiectUnu, obiectDoi) {
 			return !(obiectUnu.x > obiectDoi.x + obiectDoi.size ||
@@ -287,11 +317,11 @@
 
 		// folosesc jQuery deoarece este mai usor, si mai eficient
 		// decat un cod js
-		$(document).keydown(function(e){
+		$(document).keydown(function(e) {
 			game.keys[e.keyCode ? e.keyCode : e.which] = true;
 		});
 
-		$(document).keyup(function(e){
+		$(document).keyup(function(e) {
 			delete game.keys[e.keyCode ? e.keyCode : e.which];
 		});
 
@@ -301,7 +331,7 @@
 				
 
 		// functie care va incarca imaginile necesare pentru joc
-		function incarcareImagini(paths){
+		function incarcareImagini(paths) {
 			game.imaginiNecesare = paths.length;
 
 			for (var i = 0; i < paths.length; i++) {
@@ -319,7 +349,7 @@
 		 * functia verifica daca au fost incarcate toate imaginile in
 		 * joc Odata incarcate imaginile, jocul va porni.
 		 */
-		function startGame(){
+		function startGame() {
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
 				// Pornesc animatiile de fundal
 				formareInamici();
@@ -339,7 +369,7 @@
 				
 
 		// Incarc imaginile
-		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png"]);
+		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png", "Images/Inamic-Explozie.png"]);
 		
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
@@ -355,7 +385,7 @@
  * va folosi, daca este din 2006 sau mai recent, se poate folosi
  * pentru aplicatie.
  */
-window.requestAnimFrame = (function(){
+window.requestAnimFrame = (function() {
   return  window.requestAnimationFrame       ||
           window.webkitRequestAnimationFrame ||
           window.mozRequestAnimationFrame    ||
