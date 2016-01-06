@@ -2,22 +2,33 @@
 	$(document).ready(function(){
 		var game = {};
 
-		// setiings for start
+		/**
+		 * Setari penntru dimensiunile canvas-ului Pe viitor o sa se
+		 * stabileasca dimensiunile ecranului, prin innersize (sau
+		 * ceva de genu).
+		 * @type {Number}
+		 */
 		game.width = 400;
 		game.height = 500;
 
-		// Stele (fundal)
+		/**
+		 * Vector care retine pozitiile stelelor, cat si datele lor.
+		 * Se pot pune functiile legate de stele intr-un fisier
+		 * separat pe viitor.
+		 * @type {Array}
+		 */
 		game.stars = [];
 
 		/**
-		 * game.enemies va fi un vector care retine toti inamicii.
-		 * Ei se afla la inceput intr-o formatie prestabilita,
-		 * iar pe viitor acel contor se va schimba, in functie de nivel.
-		 * Am un contorTimpMaximInamici care il fac in functie de latimea canvas-ului,
-		 * contorul contorInamici va stabili exact pe ce distanta se vor misca navele,
-		 * iar deplasareInamicStanga arata directia
-		 * In caz ca deplasareInamicStanga este fals, se va misca in dreapta, 
-		 * daca este true, se misca spre stanga
+		 * game.enemies va fi un vector care retine toti inamicii. Ei
+		 * se afla la inceput intr-o formatie prestabilita, iar pe
+		 * viitor acel contor se va schimba, in functie de nivel. Am
+		 * un contorTimpMaximInamici care il fac in functie de latimea
+		 * canvas-ului, contorul contorInamici va stabili exact pe ce
+		 * distanta se vor misca navele, iar deplasareInamicStanga
+		 * arata directia In caz ca deplasareInamicStanga este fals,
+		 * se va misca in dreapta, daca este true, se misca spre
+		 * stanga
 		 */
 		game.enemies = [];
 		game.numarInamiciPeLinie = 5;
@@ -46,22 +57,13 @@
 			width: 70,
 			height: 70,
 			speed: 2,
-			miscare: false	// folosit pentru a randa player-ul, decat daca se misca.
+			miscare: false	// folosit pentru a randa player-ul, decat daca se misca.	
 		};
 		// Proiectil Player
 		game.proiectilPlayer = [];
 		game.contorFinalProiectil = 12;
 		game.contorInitialProiectil = game.contorFinalProiectil;
 
-		// SINTAXA PENTRU TASTE
-		// folosesc jQuery deoarece este mai usor, si mai eficient decat un cod js
-		$(document).keydown(function(e){
-			game.keys[e.keyCode ? e.keyCode : e.which] = true;
-		});
-
-		$(document).keyup(function(e){
-			delete game.keys[e.keyCode ? e.keyCode : e.which];
-		});
 
 		// "Culeg" contextul prin care o sa lucrez pentru Backgound, Action(player), Inamici
 		game.ctxBackground = document.getElementById("background-image").getContext("2d");
@@ -79,28 +81,9 @@
 
 
 
-		/* 
-			FUNCTIILE NECESARE
-		*/
-		/**
-		 * aici formez datele necesare pentru a putea forma inamicii
-		 * functia este folosita initial pentur a incarca inamicii pe nivel.
-		 */
-		function formareInamici(){
-			// Enemies
-			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
-				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
-					game.enemies.push({
-						x: ((i * 70) + (game.width / 20)),
-						y: (j * 60),
-						width: 60,
-						height: 60, 
-						image: 1
-					});
-				};
-			};
-		}
-
+		/*========================================
+		=            Functii necesare            =
+		========================================*/
 
 		// Functie de a adauga datele "stelelor", formeaza player-ul
 		function initializare(numar){
@@ -127,7 +110,8 @@
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
 				if (game.stars[i].y < -1) {
-					game.stars.splice(i, 1); // functie care v-a sterge din vectorul stele totul 
+					game.stars.splice(i, 1); 
+					// functie care v-a sterge din vectorul stele totul 
 					// vector.splice(pozitiaDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
 				};
@@ -159,11 +143,14 @@
 				game.contorInitialProiectil--;
 			};
 
+
+			// Adaugare proiectil
 			if (game.keys[32] && game.contorInitialProiectil <= 0) {
 				game.proiectilPlayer.push({
 					x: (game.player.x + (game.player.width / 2) - 5),
 					y: (game.player.y + 10),
-					size: 10,
+					width: 10,
+					height: 10,
 					speed: 5,
 					image: 2
 				});
@@ -230,7 +217,7 @@
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
 				game.ctxBullet.clearRect(bullet.x, bullet.y, game.width, game.height);
-				game.ctxBullet.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.size, bullet.size);
+				game.ctxBullet.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.width, bullet.height);
 				//game.ctxBullet.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 			};
 		}
@@ -244,7 +231,8 @@
 			});
 		}
 
-		// Functie care porneste animatiile, cu tot cu pornirea paginii
+		// Functie care porneste animatiile, cu tot cu pornirea
+		// paginii
 		function animareFundal(){
 			// porneste stele pentru inceput
 			for (var i = 0; i < 500; i++) {
@@ -257,6 +245,60 @@
 			// porneste animatia continua
 			showScreen();
 		}
+
+		/**
+		 * aici formez datele necesare pentru a putea forma inamicii
+		 * functia este folosita initial pentur a incarca inamicii pe
+		 * nivel.
+		 */
+		function formareInamici(){
+			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
+				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
+					game.enemies.push({
+						x: ((i * 70) + (game.width / 20)),
+						y: (j * 60),
+						width: 60,
+						height: 60, 
+						image: 1
+					});
+				};
+			};
+		}
+
+		/**
+		 * Functie care verifica daca apare o coliziune.
+		 * @param  {obiect} obiectUnu Primul obiect, la care i se
+		 *                            verifica posibila coliziune
+		 * @param  {obiect} obiectDoi Al doilea obiect, la care i se
+		 *                            verifica posibila coliziune
+		 * @return {bool} se returneaza true/false in functie de
+		 *                   coliziunea in sine.
+		 */
+		function coliziune(obiectUnu, obiectDoi) {
+			return !(obiectUnu.x > obiectDoi.x + obiectDoi.size ||
+					obiectUnu.x + obiectUnu.width < obiectDoi.x ||
+					obiectUnu.y > obiectDoi.y + obiectDoi.size ||
+					obiectUnu.y + obiectUnu.height < obiectDoi.y);
+		}		
+
+		/*=============================
+		=            Taste            =
+		=============================*/
+
+		// folosesc jQuery deoarece este mai usor, si mai eficient
+		// decat un cod js
+		$(document).keydown(function(e){
+			game.keys[e.keyCode ? e.keyCode : e.which] = true;
+		});
+
+		$(document).keyup(function(e){
+			delete game.keys[e.keyCode ? e.keyCode : e.which];
+		});
+
+		/*===============================
+		=            Imagini            =
+		===============================*/
+				
 
 		// functie care va incarca imaginile necesare pentru joc
 		function incarcareImagini(paths){
@@ -274,8 +316,8 @@
 		}
 
 		/**
-		 * functia verifica daca au fost incarcate toate imaginile in joc
-		 * Odata incarcate imaginile, jocul va porni.
+		 * functia verifica daca au fost incarcate toate imaginile in
+		 * joc Odata incarcate imaginile, jocul va porni.
 		 */
 		function startGame(){
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
@@ -291,6 +333,11 @@
 				};
 		}
 
+		/*=====================================================================
+		=            Apelare de functii, pentru a icnepe programul            =
+		=====================================================================*/
+				
+
 		// Incarc imaginile
 		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png"]);
 		
@@ -302,10 +349,11 @@
 
 /**
  * Aici am o functie care poate sa randeze pe broswere aplicatia.
- * Totul se bazeaza pe aceasta functie de baza pe care mare parte din browsere o au,
- * dar am ales sa o mai adaug casa pot sa am o siguranta in plus legat de aceasta chestie.
- * Astfel orice browser se va folosi, daca este din 2006 sau mai recent,
- *  se poate folosi pentru aplicatie.
+ * Totul se bazeaza pe aceasta functie de baza pe care mare parte din
+ * browsere o au, dar am ales sa o mai adaug casa pot sa am o
+ * siguranta in plus legat de aceasta chestie. Astfel orice browser se
+ * va folosi, daca este din 2006 sau mai recent, se poate folosi
+ * pentru aplicatie.
  */
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
