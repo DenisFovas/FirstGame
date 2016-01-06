@@ -9,7 +9,16 @@
 		// Stele (fundal)
 		game.stars = [];
 
-		// Inamici
+		/**
+		 * game.enemies va fi un vector care retine toti inamicii.
+		 * Ei se afla la inceput intr-o formatie prestabilita,
+		 * iar pe viitor acel contor se va schimba, in functie de nivel.
+		 * Am un contorTimpMaximInamici care il fac in functie de latimea canvas-ului,
+		 * contorul contorInamici va stabili exact pe ce distanta se vor misca navele,
+		 * iar deplasareInamicStanga arata directia
+		 * In caz ca deplasareInamicStanga este fals, se va misca in dreapta, 
+		 * daca este true, se misca spre stanga
+		 */
 		game.enemies = [];
 		game.numarInamiciPeLinie = 5;
 		game.numarInamiciPeColoana = 5;
@@ -27,13 +36,17 @@
 		game.keys = [];
 
 		// Player
+		/**
+		 * dimensiunile / setarile initiale ale jucatorului
+		 * @type {Object}
+		 */
 		game.player = {
 			x: game.width * 0.37 + 25,
 			y: game.height - (game.height * 0.2),
 			width: 70,
 			height: 70,
 			speed: 2,
-			miscare: false
+			miscare: false	// folosit pentru a randa player-ul, decat daca se misca.
 		};
 		// Proiectil Player
 		game.proiectilPlayer = [];
@@ -69,7 +82,10 @@
 		/* 
 			FUNCTIILE NECESARE
 		*/
-
+		/**
+		 * aici formez datele necesare pentru a putea forma inamicii
+		 * functia este folosita initial pentur a incarca inamicii pe nivel.
+		 */
 		function formareInamici(){
 			// Enemies
 			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
@@ -86,7 +102,7 @@
 		}
 
 
-		// Functie de a adauga datele "stelelor"
+		// Functie de a adauga datele "stelelor", formeaza player-ul
 		function initializare(numar){
 
 			// Stars
@@ -257,8 +273,10 @@
 			};
 		}
 
-		//functie de a verifica daca s-au incarcat imaginile necesare si
-		// se asigura ca avem icnarcate toate imaginile
+		/**
+		 * functia verifica daca au fost incarcate toate imaginile in joc
+		 * Odata incarcate imaginile, jocul va porni.
+		 */
 		function startGame(){
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
 				// Pornesc animatiile de fundal
