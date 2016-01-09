@@ -1,7 +1,12 @@
 (function(){
 	$(document).ready(function(){
 		var game = {};
+		
 
+		/*=========================================
+		=            Presatari pagina.            =
+		=========================================*/
+				
 		/**
 		 * Setari penntru dimensiunile canvas-ului Pe viitor o sa se
 		 * stabileasca dimensiunile ecranului, prin innersize (sau
@@ -24,6 +29,11 @@
 		 */
 		game.timeOver = 20;
 
+
+		/*================================
+		=            Entitati            =
+		================================*/
+				
 		/**
 		 * Vector care retine pozitiile stelelor, cat si datele lor.
 		 * Se pot pune functiile legate de stele intr-un fisier
@@ -401,7 +411,7 @@
 		 * jucatorului in nivelul respectiv
 		 * @return {bool} 
 		 */	
-		function afisareFinala() {
+		function afisareRezultatNivel() {
 			if (game.enemies.length <= 0) {
 				return true; // S-a castigat.
 			}
@@ -411,24 +421,30 @@
 			}
 		}
 
+		function gameOver () {
+			setTimeout(function() {
+				afisareRezultatNivel();
+			}, game.timeOver * 1000);
+		}
 
 
 
 		/*=====================================================================
-		=            Apelare de functii, pentru a icnepe programul            =
+		=            Apelare de functii, pentru a incepe programul            =
 		=====================================================================*/
 				
 
 		// Incarc imaginile
-		incarcareImagini(["Images/Nava1.png", "Images/Inamic1.png", "Images/Glont.png", "Images/Inamic-Explozie.png"]);
+		incarcareImagini([
+			"Images/Nava1.png", 
+			"Images/Inamic1.png",
+			"Images/Glont.png",
+			"Images/Inamic-Explozie.png"
+			]);
 		
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
 		startGame();
-
-		setTimeout(function () {
-			console.log(afisareFinala());
-		}, 10 * 1000)
 	});	
 })();
 
