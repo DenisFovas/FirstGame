@@ -99,7 +99,7 @@
 		====================================*/
 		
 		// "Culeg" contextul prin care o sa lucrez pentru Backgound, Action(player), Inamici
-		game.ctxBackground = document.getElementById("background-image").getContext("2d");
+		game.ctxBackground = document.getElementById("background").getContext("2d");
 		game.ctxAction = document.getElementById("action").getContext("2d");
 		game.ctxInamici = document.getElementById("inamici").getContext("2d");
 		game.ctxBullet = document.getElementById("bullet").getContext("2d");
