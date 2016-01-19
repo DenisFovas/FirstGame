@@ -107,4 +107,8 @@ Resurse:
 		// playlist pentru a intelege JavaScript + Jquery
 	~ http://stackoverflow.com/questions/7212103/how-to-move-an-image-around-with-arrow-keys-javascript
 		// Key movement
+		
+Bugs:
+	~ Navele nu se ditrug in ordinea corespunzatoare
+		@Verifica caietul Schite pentur a vedea o posibila rezolvare (Doar la master se aplica asta..)
 
