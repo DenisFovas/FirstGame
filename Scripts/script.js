@@ -348,10 +348,10 @@
 		 *                   coliziunea in sine, dintre obiecte
 		 */
 		function coliziune(obiectUnu, obiectDoi) {
-			return !(obiectUnu.x > obiectDoi.x + obiectDoi.size ||
-					obiectUnu.x + obiectUnu.width < obiectDoi.x ||
-					obiectUnu.y > obiectDoi.y + obiectDoi.size ||
-					obiectUnu.y + obiectUnu.height < obiectDoi.y);
+			return (obiectUnu.x < obiectDoi.x + obiectDoi.width &&
+   					obiectUnu.x + obiectUnu.width > obiectDoi.x &&
+   					obiectUnu.y < obiectDoi.y + obiectDoi.height &&
+   					obiectUnu.height + obiectUnu.y > obiectDoi.y);
 		}		
 
 		/*=============================
