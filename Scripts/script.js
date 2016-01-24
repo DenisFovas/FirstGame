@@ -1,132 +1,140 @@
 (function(){
 	$(document).ready(function(){
+		/**
+		 * In aceasta variabila se afla toate informatiile importante pentru
+		 * functionarea jocului
+		 * @type {Object}
+		 */
 		var game = {};
+		
+		/*=========================================
+			=            Presatari pagina.            =
+			=========================================*/
+					
+			/**
+			 * Setari penntru dimensiunile canvas-ului Pe viitor o sa se
+			 * stabileasca dimensiunile ecranului, prin innersize (sau
+			 * ceva de genu).
+			 * @type {Number}
+			 */
+			game.width = 400;
+			game.height = 500;
+			/**
+			 * Variabila care arata daca jocul s-a terminat, sau nu.	
+			 * @type {Boolean}
+			 */
+			game.over = true;
+			/**
+			 * Variabila care va insemna numarul de secunde in care
+			 * jucatorul are sa treaca nivelul. Aceasta va fi inmultita cu
+			 * 1000 in functia startGame, ca sa redea exact numarul de
+			 * secunde
+			 * @type {Number}
+			 */
+			game.timeOver = 20;
+
+
+			/*================================
+			=            Entitati            =
+			================================*/
+					
+			/**
+			 * Vector care retine pozitiile stelelor, cat si datele lor.
+			 * Se pot pune functiile legate de stele intr-un fisier
+			 * separat pe viitor.
+			 * @type {Array}
+			 */
+			game.stars = [];
+
+			/**
+			 * game.enemies va fi un vector care retine toti inamicii. Ei
+			 * se afla la inceput intr-o formatie prestabilita, iar pe
+			 * viitor acel contor se va schimba, in functie de nivel. Am
+			 * un contorTimpMaximInamici care il fac in functie de latimea
+			 * canvas-ului, contorul contorInamici va stabili exact pe ce
+			 * distanta se vor misca navele, iar deplasareInamicStanga
+			 * arata directia In caz ca deplasareInamicStanga este fals,
+			 * se va misca in dreapta, daca este true, se misca spre
+			 * stanga
+			 */
+			game.enemies = [];
+			game.numarInamiciPeLinie = 5;
+			game.numarInamiciPeColoana = 5;
+			game.contorInamici = ((game.width / 8) / 2);
+			game.contorTimpMaximInamici = (game.width / 8);
+			game.deplasareInamicStanga = true;
+			game.enemySpeed = 1;
+
+			// imagini
+			game.images = [];
+			game.imaginiNecesare = 0;
+			game.imaginiIncarcate = 0;
+
+			// Key
+			game.keys = [];
+
+			/*==============================
+			=            Player            =
+			==============================*/
+					
+			/**
+			 * dimensiunile / setarile initiale ale jucatorului
+			 * @type {Object}
+			 */
+			game.player = {
+				x: game.width * 0.37 + 25,
+				y: game.height - (game.height * 0.2),
+				width: 70,
+				height: 70,
+				speed: 2,
+				image: 0,
+				miscare: false	// folosit pentru a randa player-ul, decat daca se misca.	
+			};
+			
+			/*=================================
+			=            Proiectil player     =
+			=================================*/
+			game.proiectilPlayer = [];
+			game.contorFinalProiectil = 30;
+			game.contorInitialProiectil = game.contorFinalProiectil;
+
+		/*===============================
+		=            Context            =
+		===============================*/
+		game.ctxBackground = document.getElementById("background").getContext("2d");
+		game.ctxAction	   = document.getElementById("action").getContext("2d");
+		game.ctxInamici    = document.getElementById("inamici").getContext("2d");
+		game.ctxBullet     = document.getElementById("bullet").getContext("2d");
+		
 		
 
 		/*=========================================
-		=            Presatari pagina.            =
+		=            Functii auxiliare            =
 		=========================================*/
-				
-		/**
-		 * Setari penntru dimensiunile canvas-ului Pe viitor o sa se
-		 * stabileasca dimensiunile ecranului, prin innersize (sau
-		 * ceva de genu).
-		 * @type {Number}
-		 */
-		game.width = 400;
-		game.height = 500;
-		/**
-		 * Variabila care arata ca jocul nu s-a terminat
-		 * @type {Boolean}
-		 */
-		game.over = true;
-		/**
-		 * Variabila care va insemna numarul de secunde in care
-		 * jucatorul are sa treaca nivelul. Aceasta va fi inmultita cu
-		 * 1000 in functia startGame, ca sa redea exact numarul de
-		 * secunde
-		 * @type {Number}
-		 */
-		game.timeOver = 20;
-
-
-		/*================================
-		=            Entitati            =
-		================================*/
-				
-		/**
-		 * Vector care retine pozitiile stelelor, cat si datele lor.
-		 * Se pot pune functiile legate de stele intr-un fisier
-		 * separat pe viitor.
-		 * @type {Array}
-		 */
-		game.stars = [];
-
-		/**
-		 * game.enemies va fi un vector care retine toti inamicii. Ei
-		 * se afla la inceput intr-o formatie prestabilita, iar pe
-		 * viitor acel contor se va schimba, in functie de nivel. Am
-		 * un contorTimpMaximInamici care il fac in functie de latimea
-		 * canvas-ului, contorul contorInamici va stabili exact pe ce
-		 * distanta se vor misca navele, iar deplasareInamicStanga
-		 * arata directia In caz ca deplasareInamicStanga este fals,
-		 * se va misca in dreapta, daca este true, se misca spre
-		 * stanga
-		 */
-		game.enemies = [];
-		game.numarInamiciPeLinie = 5;
-		game.numarInamiciPeColoana = 5;
-		game.contorInamici = ((game.width / 8) / 2);
-		game.contorTimpMaximInamici = (game.width / 8);
-		game.deplasareInamicStanga = true;
-		game.enemySpeed = 1;
-
-		// imagini
-		game.images = [];
-		game.imaginiNecesare = 0;
-		game.imaginiIncarcate = 0;
-
-		// Key
-		game.keys = [];
-
-		/*==============================
-		=            Player            =
-		==============================*/
-				
-		/**
-		 * dimensiunile / setarile initiale ale jucatorului
-		 * @type {Object}
-		 */
-		game.player = {
-			x: game.width * 0.37 + 25,
-			y: game.height - (game.height * 0.2),
-			width: 70,
-			height: 70,
-			speed: 2,
-			miscare: false	// folosit pentru a randa player-ul, decat daca se misca.	
-		};
 		
-		/*=================================
-		=            Proiectil player     =
-		=================================*/
-		game.proiectilPlayer = [];
-		game.contorFinalProiectil = 30;
-		game.contorInitialProiectil = game.contorFinalProiectil;
 
+		function formeazaFundalInitial() {
+			game.ctxBackground.fillStyle = "#100";
+			game.ctxBackground.fillRect(0, 0, game.width, game.height);			
+		}
 
-		/*====================================
-		=            Context Work            =
-		====================================*/
-		
-		// "Culeg" contextul prin care o sa lucrez pentru Backgound, Action(player), Inamici
-		game.ctxBackground = document.getElementById("background").getContext("2d");
-		game.ctxAction = document.getElementById("action").getContext("2d");
-		game.ctxInamici = document.getElementById("inamici").getContext("2d");
-		game.ctxBullet = document.getElementById("bullet").getContext("2d");
-
-		// Setez culoarea de fundal: 'negru';
-		game.ctxBackground.fillStyle = "#100";
-		game.ctxBackground.fillRect(0, 0, game.width, game.height);
-		
 		/**
-		 * Cat timp se va incarca fiecare imagine in parte, afisez un
-		 * "Loading Screen" 
+		 * Aceasta functie v-a afisa un "Loading Screen", pana in momentul in
+		 * care se poate juca jocul. Astel jocul va avea ceva de afisat, pana
+		 * sunt incarcate toate imaginile/sunetele.
+		 * @return {text} 
 		 */
-		// loading time (in caz ca am imagini multe)
-		game.ctxBackground.font = "bold 50px Arial";
-		game.ctxBackground.fillStyle = "white";
-		game.ctxBackground.fillText("Loading", 100, 200);
+		function renderLoadingScreen() {
+			game.ctxBackground.font = "bold 50px Arial";
+			game.ctxBackground.fillStyle = "white";
+			game.ctxBackground.fillText("Loading", 100, 200);
+		}
 
-
-
-		/*========================================
-		=            Functii necesare            =
-		========================================*/
-
-		// Functie de a adauga datele "stelelor", formeaza player-ul
-		function initializare(numar) {
-
-			// Stars
+		/**
+		 * Functie care formeaza datele necesare prezentarii stelelor, pentru
+		 * fundal.
+		 */
+		function formareStele (numar) {
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 390),
@@ -134,17 +142,103 @@
 					size: Math.random() * 3
 				});
 			};
+		}
 
-			// Arata player inital
-			game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
+		/**
+		 * Functie care formeaza stelele initiale, astfel ca ele se vor afisa
+		 * random, pe ecran, ca si cum ele existau dinainte de a se incarca
+		 * jocul.
+		 */
+		function formareSteleInitial(numar) {
+			for (var i = 0; i < numar; i++) {
+				game.stars.push({
+					x: Math.floor(Math.random() * 390),
+					y: Math.floor(Math.random() * 550),
+					size: Math.random() * 3
+				});
+			};
+		}
+
+		/**
+		 * Functie care formeaza datele inamicilor afisati pe ecran.
+		 */
+		function updateDataEnemies() {
+			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
+				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
+					game.enemies.push({
+						x: ((i * 70) + (game.width / 20)),
+						y: (j * 60),
+						width: 60,
+						height: 60, 
+						mort: false,
+						timpMoarte: 15,
+						image: 1
+					});
+				};
+			};
+		}
+
+		function renderEntitate(entitate) {
+			game.ctxAction.clearRect(entitate.x, entitate.y, entitate.width, entitate.height);
+			game.ctxAction.drawImage(game.images[entitate.image], entitate.x, entitate.y, entitate.width, entitate.height);
+		}
+
+		/**
+		 * Functie care verifica daca apare o coliziune.
+		 * @param  {obiect} obiectUnu Primul obiect, la care i se
+		 *                            verifica posibila coliziune
+		 * @param  {obiect} obiectDoi Al doilea obiect, la care i se
+		 *                            verifica posibila coliziune
+		 * @return {bool} se returneaza true/false in functie de
+		 *                   coliziunea in sine, dintre obiecte
+		 */
+		function coliziune(obiectUnu, obiectDoi) {
+			return (obiectUnu.x < obiectDoi.x + obiectDoi.width &&
+   					obiectUnu.x + obiectUnu.width > obiectDoi.x &&
+   					obiectUnu.y < obiectDoi.y + obiectDoi.height &&
+   					obiectUnu.height + obiectUnu.y > obiectDoi.y);
+		}		
+
+		/*===============================
+		=            Imagini            =
+		===============================*/
+				
+
+		// functie care va incarca imaginile necesare pentru joc
+		function incarcareImagini(paths) {
+			game.imaginiNecesare = paths.length;
+
+			for (var i = 0; i < paths.length; i++) {
+				var imagine = new Image();
+
+				imagine.src = paths[i];
+				game.images[i] = imagine;
+				game.images[i].onload =  function(){
+					game.imaginiIncarcate++;
+				}
+			};
+		}
+
+		
+
+		/*========================================
+		=            Functii necesare            =
+		========================================*/
+
+		// Functie de a adauga datele "stelelor", formeaza player-ul
+		function initializare() {
+			formeazaFundalInitial();
+			formareSteleInitial(600);
+			renderLoadingScreen();
+			updateDataEnemies();
+			renderEntitate();
 		}
 
 		// Functie care formeaza animatia de miscare si va elimina
 		// toate stelele care nu mai apar pe ecran
 		function updateData() {
-			
+			formareStele(1);
 			// Stars
-			initializare(1);
 			for (var i = 0; i < game.stars.length; i++) {
 				game.stars[i].y--;
 				if (game.stars[i].y < -1) {
@@ -252,7 +346,6 @@
 					game.enemies.splice(i, 1);
 				};
 			}
-
 		}	
 
 
@@ -304,14 +397,6 @@
 		// Functie care porneste animatiile, cu tot cu pornirea
 		// paginii
 		function animareFundal() {
-			// porneste stele pentru inceput
-			for (var i = 0; i < 500; i++) {
-				game.stars.push({
-					x: Math.floor(Math.random() * 390),
-					y: Math.floor(Math.random() * 550),
-					size: Math.random() * 3
-				});
-			};
 			// porneste animatia continua
 			showScreen();
 		}
@@ -322,37 +407,7 @@
 		 * functia este folosita initial pentur a incarca inamicii pe
 		 * nivel.
 		 */
-		function formareInamici() {
-			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
-				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
-					game.enemies.push({
-						x: ((i * 70) + (game.width / 20)),
-						y: (j * 60),
-						width: 60,
-						height: 60, 
-						mort: false,
-						timpMoarte: 15,
-						image: 1
-					});
-				};
-			};
-		}
 
-		/**
-		 * Functie care verifica daca apare o coliziune.
-		 * @param  {obiect} obiectUnu Primul obiect, la care i se
-		 *                            verifica posibila coliziune
-		 * @param  {obiect} obiectDoi Al doilea obiect, la care i se
-		 *                            verifica posibila coliziune
-		 * @return {bool} se returneaza true/false in functie de
-		 *                   coliziunea in sine, dintre obiecte
-		 */
-		function coliziune(obiectUnu, obiectDoi) {
-			return (obiectUnu.x < obiectDoi.x + obiectDoi.width &&
-   					obiectUnu.x + obiectUnu.width > obiectDoi.x &&
-   					obiectUnu.y < obiectDoi.y + obiectDoi.height &&
-   					obiectUnu.height + obiectUnu.y > obiectDoi.y);
-		}		
 
 		/*=============================
 		=            Taste            =
@@ -368,25 +423,6 @@
 			delete game.keys[e.keyCode ? e.keyCode : e.which];
 		});
 
-		/*===============================
-		=            Imagini            =
-		===============================*/
-				
-
-		// functie care va incarca imaginile necesare pentru joc
-		function incarcareImagini(paths) {
-			game.imaginiNecesare = paths.length;
-
-			for (var i = 0; i < paths.length; i++) {
-				var imagine = new Image();
-
-				imagine.src = paths[i];
-				game.images[i] = imagine;
-				game.images[i].onload =  function(){
-					game.imaginiIncarcate++;
-				}
-			};
-		}
 
 		/**
 		 * functia verifica daca au fost incarcate toate imaginile in
