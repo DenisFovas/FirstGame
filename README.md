@@ -1,2 +1,2 @@
-Aceasta aplicatie este una pe care invat deocamdata bazele tehnologiei HTML 5.
-Folderele sunt structurate intr-un mod mai dezordonat, deoarece inca ma aflu la inceput, astfel ca doresc ca sa invat in timp toate, deocamdata axandu-ma pe scrierea de cod.
+# FirstGame
+	See to do list to can see things that needs to be done, and the things done
