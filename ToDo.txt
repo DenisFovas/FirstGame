@@ -111,4 +111,5 @@ Resurse:
 Bugs:
 	~ Navele nu se ditrug in ordinea corespunzatoare
 		@Verifica caietul Schite pentur a vedea o posibila rezolvare (Doar la master se aplica asta..)
+		> Done. Nu a fost scris bine algoritmul de coliziune.
 

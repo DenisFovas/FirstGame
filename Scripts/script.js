@@ -7,7 +7,7 @@
 		 */
 		var game = {};
 		
-		/*=========================================
+    		/*=========================================
 			=            Presatari pagina.            =
 			=========================================*/
 					
@@ -73,6 +73,9 @@
 			// Key
 			game.keys = [];
 
+         // Scorul utilizatorului
+         game.score = 0;
+
 			/*==============================
 			=            Player            =
 			==============================*/
@@ -102,7 +105,7 @@
 		=            Context            =
 		===============================*/
 		game.ctxBackground = document.getElementById("background").getContext("2d");
-		game.ctxAction	   = document.getElementById("action").getContext("2d");
+		game.ctxAction	    = document.getElementById("action").getContext("2d");
 		game.ctxInamici    = document.getElementById("inamici").getContext("2d");
 		game.ctxBullet     = document.getElementById("bullet").getContext("2d");
 		
@@ -138,7 +141,7 @@
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
 					x: Math.floor(Math.random() * 390),
-					y: 499,
+					y: 0,
 					size: Math.random() * 3
 				});
 			};
@@ -176,12 +179,35 @@
 					});
 				};
 			};
+         return game.enemies;
 		}
 
 		function renderEntitate(entitate) {
 			game.ctxAction.clearRect(entitate.x, entitate.y, entitate.width, entitate.height);
 			game.ctxAction.drawImage(game.images[entitate.image], entitate.x, entitate.y, entitate.width, entitate.height);
 		}
+
+      function gameIsWon() {
+        var gameWon = false;
+        if (game.enemies.length <= 0) {
+                gameWon = true;
+        } else {
+                gameWon = false;
+        }
+
+        return gameWon;
+      }
+
+      /**
+       * Se va trece la urmatorul nivel in caz ca se termina nivelul.
+       *
+       */
+      function newLevel() {
+              setInterval(function () {
+                      updateDataEnemies();
+              }, 1500);
+      }
+
 
 		/**
 		 * Functie care verifica daca apare o coliziune.
@@ -198,6 +224,21 @@
    					obiectUnu.y < obiectDoi.y + obiectDoi.height &&
    					obiectUnu.height + obiectUnu.y > obiectDoi.y);
 		}		
+
+		/*=============================
+		=            Taste            =
+		=============================*/
+
+		// folosesc jQuery deoarece este mai usor, si mai eficient
+		// decat un cod js
+		$(document).keydown(function(e) {
+			game.keys[e.keyCode ? e.keyCode : e.which] = true;
+		});
+
+		$(document).keyup(function(e) {
+			delete game.keys[e.keyCode ? e.keyCode : e.which];
+		});
+
 
 		/*===============================
 		=            Imagini            =
@@ -230,8 +271,8 @@
 			formeazaFundalInitial();
 			formareSteleInitial(600);
 			renderLoadingScreen();
-			updateDataEnemies();
-			renderEntitate();
+			game.enemies = updateDataEnemies();
+			renderEntitate(game.player);
 		}
 
 		// Functie care formeaza animatia de miscare si va elimina
@@ -240,15 +281,13 @@
 			formareStele(1);
 			// Stars
 			for (var i = 0; i < game.stars.length; i++) {
-				game.stars[i].y--;
-				if (game.stars[i].y < -1) {
+				game.stars[i].y++;
+				if (game.stars[i].y > game.height + 10) {
 					game.stars.splice(i, 1); 
 					// functie care v-a sterge din vectorul stele totul 
 					// vector.splice(pozitiaDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
 				};
-				//console.log(game.stars.length);
-				// pentru a afisa lungimea vectorilor de stele
 			};
 
 
@@ -328,6 +367,7 @@
 						// Oprim proiectulul odata cu o coliziune
 						game.ctxBullet.clearRect(game.proiectilPlayer[contorProiectil].x, game.proiectilPlayer[contorProiectil].y, game.proiectilPlayer[contorProiectil].width + 5, game.proiectilPlayer[contorProiectil].height + 10)
 						game.proiectilPlayer.splice(contorProiectil, 1);
+                  game.score += 100;
 
 					};
 				}
@@ -346,6 +386,9 @@
 					game.enemies.splice(i, 1);
 				};
 			}
+         if (gameIsWon() === true) {
+               newLevel(); 
+         }
 		}	
 
 
@@ -383,47 +426,29 @@
 				game.ctxBullet.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.width, bullet.height);
 				//game.ctxBullet.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 			};
+
+         /**
+          * Afisare scor.
+          *
+          */
 		}
 
 		// Functie care animeaza totul
 		function showScreen() {
 			requestAnimFrame(function(){
-				renderScreen();
 				updateData();
 				showScreen();
+				renderScreen();
 			});
 		}
 
 		// Functie care porneste animatiile, cu tot cu pornirea
 		// paginii
 		function animareFundal() {
+        initializare();
 			// porneste animatia continua
 			showScreen();
 		}
-
-		/**
-		 * Formarea de inamici
-		 * aici formez datele necesare pentru a putea forma inamicii
-		 * functia este folosita initial pentur a incarca inamicii pe
-		 * nivel.
-		 */
-
-
-		/*=============================
-		=            Taste            =
-		=============================*/
-
-		// folosesc jQuery deoarece este mai usor, si mai eficient
-		// decat un cod js
-		$(document).keydown(function(e) {
-			game.keys[e.keyCode ? e.keyCode : e.which] = true;
-		});
-
-		$(document).keyup(function(e) {
-			delete game.keys[e.keyCode ? e.keyCode : e.which];
-		});
-
-
 		/**
 		 * functia verifica daca au fost incarcate toate imaginile in
 		 * joc Odata incarcate imaginile, jocul va porni.
@@ -431,39 +456,13 @@
 		function startGame() {
 			if (game.imaginiIncarcate >= game.imaginiNecesare) {
 				// Pornesc animatiile de fundal
-				formareInamici();
 				animareFundal();
 			} else {
-				if (game.over !== false) {
 					setTimeout(function(){
 						startGame();
-					}, 60)
-				}
+					}, 60);
 			};
 		}
-
-		/**
-		 * Functie care va returna victoria sau infrangerea
-		 * jucatorului in nivelul respectiv
-		 * @return {bool} 
-		 */	
-		function afisareRezultatNivel() {
-			if (game.enemies.length <= 0) {
-				return true; // S-a castigat.
-			}
-			else
-			{
-				return false; //S-a pierdut.
-			}
-		}
-
-		function gameOver () {
-			setTimeout(function() {
-				afisareRezultatNivel();
-			}, game.timeOver * 1000);
-		}
-
-
 
 		/*=====================================================================
 		=            Apelare de functii, pentru a incepe programul            =
@@ -498,7 +497,7 @@ window.requestAnimFrame = (function() {
           window.mozRequestAnimationFrame    ||
           window.oRequestAnimationFrame      ||
           function( callback ){
-          	// 1000 milisecunde = 1 secunda; "/ x" <=> xfps
+          	// 1000 milisecunde = 1 secu da; "/ x" <=> xfps
             window.setTimeout(callback, 1000 / 60); 
           };
 })();
