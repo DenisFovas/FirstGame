@@ -108,6 +108,7 @@
 		game.ctxAction	    = document.getElementById("action").getContext("2d");
 		game.ctxInamici    = document.getElementById("inamici").getContext("2d");
 		game.ctxBullet     = document.getElementById("bullet").getContext("2d");
+      game.ctxText       = document.getElementById("text").getContext("2d");
 		
 		
 
@@ -182,6 +183,14 @@
          return game.enemies;
 		}
 
+      function displayScore() {
+        game.ctxText.fillStyle = "white";
+        game.ctxText.font = "25px bold Arial";
+        game.ctxText.clearRect(0, 0, game.width, 50);
+        game.ctxText.fillText(game.score, 350, 50);
+	
+      }
+
 		function renderEntitate(entitate) {
 			game.ctxAction.clearRect(entitate.x, entitate.y, entitate.width, entitate.height);
 			game.ctxAction.drawImage(game.images[entitate.image], entitate.x, entitate.y, entitate.width, entitate.height);
@@ -193,8 +202,8 @@
                 gameWon = true;
         } else {
                 gameWon = false;
-        }
 
+        }
         return gameWon;
       }
 
@@ -202,10 +211,20 @@
        * Se va trece la urmatorul nivel in caz ca se termina nivelul.
        *
        */
-      function newLevel() {
-              setInterval(function () {
-                      updateDataEnemies();
-              }, 1500);
+      function finishLevel() {
+              /**
+              * Reafiseaza inamiicii pentru un nou nivel. 
+              * Trebuie sa fac un mod in care sa fie afisati dupa un anumit interval.
+              * Poate o sa folosesc un temporizator improvizat.
+              *
+              */
+              game.enemies = updateDataEnemies();
+
+              /**
+              * Trebuie sa aratam ca s-a castigat.
+              *
+              */
+              console.log("LevelPassed");
       }
 
 
@@ -367,6 +386,10 @@
 						// Oprim proiectulul odata cu o coliziune
 						game.ctxBullet.clearRect(game.proiectilPlayer[contorProiectil].x, game.proiectilPlayer[contorProiectil].y, game.proiectilPlayer[contorProiectil].width + 5, game.proiectilPlayer[contorProiectil].height + 10)
 						game.proiectilPlayer.splice(contorProiectil, 1);
+                  /**
+                   * Se modifica scorul in caz ca se distrug inamici.
+                   *
+                   */
                   game.score += 100;
 
 					};
@@ -387,7 +410,7 @@
 				};
 			}
          if (gameIsWon() === true) {
-               newLevel(); 
+               finishLevel(); 
          }
 		}	
 
@@ -431,6 +454,7 @@
           * Afisare scor.
           *
           */
+         displayScore();
 		}
 
 		// Functie care animeaza totul
