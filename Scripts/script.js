@@ -14,7 +14,7 @@
 			/**
 			 * Setari penntru dimensiunile canvas-ului Pe viitor o sa se
 			 * stabileasca dimensiunile ecranului, prin innersize (sau
-			 * ceva de genu).
+			 * ceva de genul).
 			 * @type {Number}
 			 */
 			game.width = 400;
@@ -186,9 +186,8 @@
       function displayScore() {
         game.ctxText.fillStyle = "white";
         game.ctxText.font = "25px bold Arial";
-        game.ctxText.clearRect(0, 0, game.width, 50);
-        game.ctxText.fillText(game.score, 350, 50);
-	
+        game.ctxText.clearRect(0, 0, game.width, 30);
+        game.ctxText.fillText(game.score, game.width-50, 30);
       }
 
 		function renderEntitate(entitate) {
@@ -202,7 +201,6 @@
                 gameWon = true;
         } else {
                 gameWon = false;
-
         }
         return gameWon;
       }
