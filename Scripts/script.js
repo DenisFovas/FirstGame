@@ -376,12 +376,14 @@
 
 
       /**
-       * O noua varianta de miscare a inamicilor.
+       * Miscarea inamicilor. Ei se vor misca intr-o directie pana depasesc o limita. 
+       * Limitele sunt puse de catre marginea din  stanga a ecranului + marginea pe care o preferam,
+       * si marginea din dreapta, care este latimea ecranului, dar scazuta marginea ecranului.
        *
        */
       for (var i = 0, l = game.enemies.length; i < l; i++) {
               var enemy = game.enemies[i];
-              if (enemy.x <= 0 + MARGINE_ECRAN || enemy.x >= game.width - MARGINE_ECRAN) {
+              if ((enemy.x <= 0 + MARGINE_ECRAN) || (enemy.x  >= game.width - MARGINE_ECRAN - enemy.width)) {
                       game.deplasareInamicStanga = !game.deplasareInamicStanga;
               }
       }
