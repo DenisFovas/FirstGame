@@ -1,13 +1,18 @@
 (function(){
 	$(document).ready(function(){
+          /**
+           * Constante
+           *
+           */
+          var MARGINE_ECRAN = 5;
 		/**
 		 * In aceasta variabila se afla toate informatiile importante pentru
 		 * functionarea jocului
 		 * @type {Object}
 		 */
-		var game = {};
+      var game = {};
 		
-    		/*=========================================
+   		/*=========================================
 			=            Presatari pagina.            =
 			=========================================*/
 					
@@ -29,7 +34,7 @@
 			 * jucatorul are sa treaca nivelul. Aceasta va fi inmultita cu
 			 * 1000 in functia startGame, ca sa redea exact numarul de
 			 * secunde
-			 * @type {Number}
+		 * @type {Number}
 			 */
 			game.timeOver = 20;
 
@@ -65,6 +70,11 @@
 			game.deplasareInamicStanga = true;
 			game.enemySpeed = 1;
 
+      /**
+       * Player object.
+       *
+       */
+      game.player = {};
 			// imagini
 			game.images = [];
 			game.imaginiNecesare = 0;
@@ -75,41 +85,30 @@
 
          // Scorul utilizatorului
          game.score = 0;
+          /**
+           * Vector in care se va stoca fiecare proiectil al inamicilor in momentul in care tragem.
+           * Acest mod asigura o simpla organizare a modului in care putem modifica informatiile din
+           * cadrul proiectilelor.
+           *
+           */
+         game.proiectilInamici = [];
+         /*==============================
+          *     Context Work            =
+          *============================*/
 
-			/*==============================
-			=            Player            =
-			==============================*/
-					
-			/**
-			 * dimensiunile / setarile initiale ale jucatorului
-			 * @type {Object}
-			 */
-			game.player = {
-				x: game.width * 0.37 + 25,
-				y: game.height - (game.height * 0.2),
-				width: 70,
-				height: 70,
-				speed: 2,
-				image: 0,
-				miscare: false	// folosit pentru a randa player-ul, decat daca se misca.	
-			};
-			
+        game.ctxBackground = document.getElementById("background").getContext("2d");
+        game.ctxAction	   = document.getElementById("action").getContext("2d");
+        game.ctxInamici    = document.getElementById("inamici").getContext("2d");
+        game.ctxBullet     = document.getElementById("bullet").getContext("2d");
+        game.ctxText       = document.getElementById("text").getContext("2d");
+
+
 			/*=================================
 			=            Proiectil player     =
 			=================================*/
 			game.proiectilPlayer = [];
 			game.contorFinalProiectil = 30;
 			game.contorInitialProiectil = game.contorFinalProiectil;
-
-		/*===============================
-		=            Context            =
-		===============================*/
-		game.ctxBackground = document.getElementById("background").getContext("2d");
-		game.ctxAction	    = document.getElementById("action").getContext("2d");
-		game.ctxInamici    = document.getElementById("inamici").getContext("2d");
-		game.ctxBullet     = document.getElementById("bullet").getContext("2d");
-      game.ctxText       = document.getElementById("text").getContext("2d");
-		
 		
 
 		/*=========================================
@@ -163,37 +162,68 @@
 			};
 		}
 
+    function formeazaPlayer() {
+
+        var width = game.width * 0.15;
+        var height = width;
+        
+        var x = game.width * 0.5 - width / 2;
+        var y = game.height * 0.85;
+        var speed = 4;
+        var margineMiscare = 15;
+        var hp = 10;
+        var player = {
+                x,
+                y,
+                width,
+                height,
+                speed,
+                hp: 10,
+                miscare: false,
+
+        };
+        return player;
+    }
 		/**
 		 * Functie care formeaza datele inamicilor afisati pe ecran.
 		 */
 		function updateDataEnemies() {
+      var enemies = [];
+
 			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
 				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
-					game.enemies.push({
-						x: ((i * 70) + (game.width / 20)),
-						y: (j * 60),
-						width: 60,
-						height: 60, 
-						mort: false,
-						timpMoarte: 15,
-						image: 1
-					});
+                var enemy = {
+                        x: i * 70 + 25, 
+                        y: j * 60,
+                        width: 50,
+                        height: 50,
+                        speed: 5,
+                        image: 1,
+                        mort: false,
+                        timpMoarte: 20,
+                        shoot: function () {
+                                var proiectil = {
+                                        x:  this.x + (50 / 2),
+                                        y:  this.y + this.height,
+                                        width: 3,
+                                        height: 3,
+                                        speed: 5
+                                };
+                                game.proiectilInamici.push(proiectil); 
+                        }
+                }
+			          enemies.push(enemy);
 				};
 			};
-         return game.enemies;
+         return enemies;
 		}
 
-      function displayScore() {
-        game.ctxText.fillStyle = "white";
-        game.ctxText.font = "25px bold Arial";
-        game.ctxText.clearRect(0, 0, game.width, 30);
-        game.ctxText.fillText(game.score, game.width-50, 30);
+        function displayScore() { 
+                game.ctxText.fillStyle = "white";
+                game.ctxText.font = "25px bold Arial";
+                game.ctxText.clearRect(0, 0, game.width, 30);
+                game.ctxText.fillText("Score: " + game.score, game.width-140, 30);
       }
-
-		function renderEntitate(entitate) {
-			game.ctxAction.clearRect(entitate.x, entitate.y, entitate.width, entitate.height);
-			game.ctxAction.drawImage(game.images[entitate.image], entitate.x, entitate.y, entitate.width, entitate.height);
-		}
 
       function gameIsWon() {
         var gameWon = false;
@@ -246,8 +276,6 @@
 		=            Taste            =
 		=============================*/
 
-		// folosesc jQuery deoarece este mai usor, si mai eficient
-		// decat un cod js
 		$(document).keydown(function(e) {
 			game.keys[e.keyCode ? e.keyCode : e.which] = true;
 		});
@@ -272,7 +300,7 @@
 				imagine.src = paths[i];
 				game.images[i] = imagine;
 				game.images[i].onload =  function(){
-					game.imaginiIncarcate++;
+                game.imaginiIncarcate++;
 				}
 			};
 		}
@@ -288,8 +316,9 @@
 			formeazaFundalInitial();
 			formareSteleInitial(600);
 			renderLoadingScreen();
+      game.player = formeazaPlayer();
 			game.enemies = updateDataEnemies();
-			renderEntitate(game.player);
+      game.ctxAction.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
 		}
 
 		// Functie care formeaza animatia de miscare si va elimina
@@ -301,7 +330,9 @@
 				game.stars[i].y++;
 				if (game.stars[i].y > game.height + 10) {
 					game.stars.splice(i, 1); 
-					// functie care v-a sterge din vectorul stele totul 
+					// functie care v-a sterge din vectorul stele un numar de stele care ii indicam.
+          // In aceasta situatie, stergem un element, de pe pozitia i, deoarece
+          // a iesit inafara ecranului.
 					// vector.splice(pozitiaDePeCareStergem, nrElementeSterse)
 					// numai se afiseaza pe ecran
 				};
@@ -332,14 +363,14 @@
 			};
 
 
-			// Adaugare proiectil
+			// Adaugare proiectil pentru player.
 			if (game.keys[32] && game.contorInitialProiectil <= 0) {
 				game.proiectilPlayer.push({
 					x: (game.player.x + (game.player.width / 2) - 5),
 					y: (game.player.y + 10),
 					width: 10,
 					height: 10,
-					speed: 5,
+					speed: 9,
 					image: 2
 				});
 				game.contorInitialProiectil = game.contorFinalProiectil;
@@ -352,6 +383,17 @@
 				// Pun opusul directiei de mers
 				game.deplasareInamicStanga = !game.deplasareInamicStanga;
 			};
+
+      /**
+       * O noua varianta de miscare a inamicilor.
+       *
+       */
+      for (var i = 0, l = game.enemies.length; i < l; i++) {
+              var enemy = game.enemies[i];
+              if (enemy.x <= 0 + MARGINE_ECRAN || enemy.x >= game.width - MARGINE_ECRAN) {
+                      game.deplasareInamicStanga = !game.deplasareInamicStanga;
+              }
+      }
 
 			// Deplasarea efectiva a inamicilor
 			for(i in game.enemies){
@@ -372,6 +414,24 @@
 				};
 			};
 
+         /**
+          * Se va alege inamicul care v-a trage.
+          *
+          */
+         var idInamicActiv = Math.round(Math.random() * game.enemies.lenght);
+         game.enemies[i].shoot();
+        
+         /**
+          * Algoritmul de tip update al proiectilelor inamicilor.
+          *
+          */
+         for (var i = 0, l = game.proiectilInamici.length; i < l; i++) {
+                 var proiectilCurent = game.proiectilInamici[i];
+                 proiectilCurent.y -= proiectilCurent.speed;
+                 if (proiectilCurent.y >= game.height) {
+                        game.proiectilInamici.splice(i, 1);
+                 }
+         }
 
 			// Verificare daca se afla o coliziune intre proiectil, si
 			// intre inamici.
@@ -440,7 +500,22 @@
 				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
 			};
 
-			// Proiectil Player - arata pana spre sus
+         /**
+          * Proiectil inamici. Se va randa proiectilul pe care inamicii il
+          * lansaeaza.
+          *
+          */
+         for(i in game.enemies) {
+                var inamic = game.enemies[i];
+                if(inamic.isShooting && game.proiectilInamic.length > 0) {
+                        for(j in game.prioiectilInamic) {
+                                var proiectil = game.proiectilInamic[j];
+                                game.ctxInamici.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+                        }
+                }
+         }
+
+			// Proiectil Player - arata pana la marginea superioara a ecranului.
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
 				game.ctxBullet.clearRect(bullet.x, bullet.y, game.width, game.height);
@@ -459,8 +534,8 @@
 		function showScreen() {
 			requestAnimFrame(function(){
 				updateData();
-				showScreen();
 				renderScreen();
+				showScreen();
 			});
 		}
 
@@ -519,7 +594,7 @@ window.requestAnimFrame = (function() {
           window.mozRequestAnimationFrame    ||
           window.oRequestAnimationFrame      ||
           function( callback ){
-          	// 1000 milisecunde = 1 secu da; "/ x" <=> xfps
+          	// 1000 milisecunde = 1 secunde si "1000 / x" <=> xfps
             window.setTimeout(callback, 1000 / 60); 
           };
 })();
