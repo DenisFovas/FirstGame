@@ -170,7 +170,6 @@
         var x = game.width * 0.5 - width / 2;
         var y = game.height * 0.85;
         var speed = 4;
-        var margineMiscare = 15;
         var hp = 10;
         var player = {
                 x,
@@ -180,7 +179,6 @@
                 speed,
                 hp: 10,
                 miscare: false,
-
         };
         return player;
     }
@@ -376,13 +374,6 @@
 				game.contorInitialProiectil = game.contorFinalProiectil;
 			};
 
-
-			// Miscare Inamici cu ajutorul unui contor(ceas) improvizat
-			game.contorInamici++;
-			if (game.contorInamici % game.contorTimpMaximInamici == 0) {
-				// Pun opusul directiei de mers
-				game.deplasareInamicStanga = !game.deplasareInamicStanga;
-			};
 
       /**
        * O noua varianta de miscare a inamicilor.
