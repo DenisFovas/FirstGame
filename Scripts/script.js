@@ -17,8 +17,8 @@
 			 * ceva de genul).
 			 * @type {Number}
 			 */
-			game.width = 400;
-			game.height = 500;
+			game.width = 800;
+			game.height = 600;
 			/**
 			 * Variabila care arata daca jocul s-a terminat, sau nu.	
 			 * @type {Boolean}
@@ -59,7 +59,7 @@
 			 */
 			game.enemies = [];
 			game.numarInamiciPeLinie = 5;
-			game.numarInamiciPeColoana = 5;
+			game.numarInamiciPeColoana = 2;
 			game.contorInamici = ((game.width / 8) / 2);
 			game.contorTimpMaximInamici = (game.width / 8);
 			game.deplasareInamicStanga = true;
@@ -136,7 +136,7 @@
 		function formareStele (numar) {
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
-					x: Math.floor(Math.random() * 390),
+					x: Math.floor(Math.random() * game.width),
 					y: 0,
 					size: Math.random() * 3
 				});
@@ -151,8 +151,8 @@
 		function formareSteleInitial(numar) {
 			for (var i = 0; i < numar; i++) {
 				game.stars.push({
-					x: Math.floor(Math.random() * 390),
-					y: Math.floor(Math.random() * 550),
+					x: Math.floor(Math.random() * game.width),
+					y: Math.floor(Math.random() * game.height),
 					size: Math.random() * 3
 				});
 			};
@@ -182,13 +182,10 @@
 		 * Functie care formeaza datele inamicilor afisati pe ecran.
 		 */
 		function updateDataEnemies() {
-      var enemies = [];
-
-			for (var i = 0; i < game.numarInamiciPeLinie; i++) {
-				for (var j = 0; j < game.numarInamiciPeColoana; j++) {
+			var enemies = [];
                 var enemy = {
-                        x: i * 70 + 25, 
-                        y: j * 60,
+                        x: 20 + Math.random() * (game.width - 40) , 
+                        y: 60,
                         width: 50,
                         height: 50,
                         speed: 5,
@@ -197,8 +194,6 @@
                         timpMoarte: 20,
                 }
 			          enemies.push(enemy);
-				};
-			};
          return enemies;
 		}
 
@@ -375,11 +370,11 @@
        */
 			for(i in game.enemies){
 				if (game.deplasareInamicStanga) {
-					game.enemies[i].x -= game.enemySpeed; 
+					game.enemies[i].y -= game.enemySpeed; 
 				} 
 				else
 				{	
-					game.enemies[i].x += game.enemySpeed;
+					game.enemies[i].y += game.enemySpeed;
 				};
 			}
 
@@ -417,8 +412,8 @@
 		    *
 		    */
 		    var proiectil = {
-		            x: game.enemies[idInamicActiv].x + game.enemies[idInamicActiv].width / 2,
-		            y: game.enemies[idInamicActiv].y + game.enemies[idInamicActiv].height - 8,
+		            x: game.enemies[i].x + game.enemies[i].width / 2,
+		            y: game.enemies[i].y + game.enemies[i].height - 8,
 		            width: 10,
 		            height: 10,
 		            speed: 5,
@@ -581,17 +576,11 @@
 		// Incarc imaginile
 		incarcareImagini([
 			"Images/Nava1.png", 
-			"Images/Glont.png", 
-			"Images/Inamic-Explozie.png",
 			"Images/cplusplus.png",
-			"Images/csharp.png",
-			"Images/php.png",
-			"Images/Java.png",
-			"Images/code_bun.png",
-			"Images/code_ok.png",
-			"Images/code.png"
+			"Images/Glont.png",
+			"Images/Inamic-Explozie.png"
 			]);
-			
+		
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
 		startGame();
