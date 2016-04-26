@@ -395,18 +395,21 @@
           * Se va alege inamicul care v-a trage.
           *
           */
-      if (Math.random() * 1 >= 0.8) {
-         var idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));
+      for(i in game.enemies) {
+         var trage = false;
+		 if(Math.random() * 1 >= 80) {
+		 
+		 /*
+		 var idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));
 
          /**
           * Cat timp nu avem conditiile ca sa putem alege un inamic unic de fiecare data, o sa
           * cautam un inamic posibil.
           *
-          */
          while (typeof game.enemies[idInamicActiv] === undefined) {
               idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));   
          }
-
+         */
 		    /**
 		    * Creez un bullet in punctul x-width/2, y+height, width heigth, speed
 		    * In cadrul acestuia, ii atribuim imaginea dorita.
@@ -424,7 +427,7 @@
                 }
 		    }
 		    game.proiectilInamici.push(proiectil);
-
+		 }
 
       }
      		/**
@@ -466,7 +469,7 @@
                    */
                   game.score += 100;
 
-					};
+					}
 				}
 			}
 
