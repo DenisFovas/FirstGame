@@ -588,7 +588,7 @@
 			"Images/Java.png",
 			"Images/php.png"
 			]);
-		
+			
 		// verific imaginile.
 		// daca sunt incarcate atunci o sa se poata porni jocul
 		startGame();
