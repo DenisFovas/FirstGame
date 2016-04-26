@@ -1,11 +1,6 @@
 (function(){
 	$(document).ready(function(){
-          /**
-           * Constante
-           *
-           */
-          var MARGINE_ECRAN = 5;
-		/**
+   /**
 		 * In aceasta variabila se afla toate informatiile importante pentru
 		 * functionarea jocului
 		 * @type {Object}
@@ -199,16 +194,6 @@
                         image: 1,
                         mort: false,
                         timpMoarte: 20,
-                        shoot: function () {
-                                var proiectil = {
-                                        x:  this.x + (50 / 2),
-                                        y:  this.y + this.height,
-                                        width: 3,
-                                        height: 3,
-                                        speed: 5
-                                };
-                                game.proiectilInamici.push(proiectil); 
-                        }
                 }
 			          enemies.push(enemy);
 				};
@@ -374,21 +359,19 @@
 				game.contorInitialProiectil = game.contorFinalProiectil;
 			};
 
-
-      /**
-       * Miscarea inamicilor. Ei se vor misca intr-o directie pana depasesc o limita. 
-       * Limitele sunt puse de catre marginea din  stanga a ecranului + marginea pe care o preferam,
-       * si marginea din dreapta, care este latimea ecranului, dar scazuta marginea ecranului.
-       *
-       */
-      for (var i = 0, l = game.enemies.length; i < l; i++) {
-              var enemy = game.enemies[i];
-              if ((enemy.x <= 0 + MARGINE_ECRAN) || (enemy.x  >= game.width - MARGINE_ECRAN - enemy.width)) {
-                      game.deplasareInamicStanga = !game.deplasareInamicStanga;
-              }
-      }
+      game.contorInamici++;
+        if (game.contorInamici % game.contorTimpMaximInamici == 0) {
+                // Pun opusul directiei de mers
+                game.deplasareInamicStanga = !game.deplasareInamicStanga;
+        };
 
 			// Deplasarea efectiva a inamicilor
+      /**
+       * Miscarea lor se bazeaza pe folosierea unui temporizator improvizat. 
+       * In momentul in care indicele 'game.contorInamici' devine un multiplu al lui 'game.contorTimpMaximInamici' atunci
+       * o sa fie momentul in care o sa schimbam directia lor de mers.
+       *
+       */
 			for(i in game.enemies){
 				if (game.deplasareInamicStanga) {
 					game.enemies[i].x -= game.enemySpeed; 
@@ -411,20 +394,47 @@
           * Se va alege inamicul care v-a trage.
           *
           */
-         var idInamicActiv = Math.round(Math.random() * game.enemies.lenght);
-         game.enemies[i].shoot();
-        
-         /**
-          * Algoritmul de tip update al proiectilelor inamicilor.
-          *
-          */
-         for (var i = 0, l = game.proiectilInamici.length; i < l; i++) {
-                 var proiectilCurent = game.proiectilInamici[i];
-                 proiectilCurent.y -= proiectilCurent.speed;
-                 if (proiectilCurent.y >= game.height) {
-                        game.proiectilInamici.splice(i, 1);
-                 }
-         }
+      if (Math.random() * 1 >= 0.8) {
+         var idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));
+
+		    /**
+		    * Creez un bullet in punctul x-width/2, y+height, width heigth, speed
+		    * In cadrul acestuia, ii atribuim imaginea dorita.
+		    * Acesta va fi stocat intr-un vector 'game.proiectilInamici'.
+		    *
+		    */
+		    var proiectil = {
+		            x: game.enemies[i].x - game.enemies[i].width / 2,
+		            y: game.enemies[i].y + game.enemies[i].height,
+		            width: 10,
+		            height: 10,
+		            speed: 1
+		    }
+		    game.proiectilInamici.push(proiectil);
+		    console.log(game.proiectilInamici.length);
+
+     		/**
+		    * Algoritmul de tip update al proiectilelor inamicilor.
+		    *
+		    */
+		    for (var i = 0, l = game.proiectilInamici.length; i < l; i++) {
+		            var proiectilCurent = game.proiectilInamici[i];
+		            /**
+		            * In caz ca proiectilul este inafara ecranului, o s ail stergem din vector, si o
+		            * sa punem algoritmul sa poata continua.
+		            *
+		            */
+		            if (proiectilCurent.y + proiectilCurent.height >= game.height + 10) {
+		                     game.proiectilInamici.splice(i, 1);
+		                     i--;
+		                     l--;
+		                     continue;
+		            } else {
+		                    proiectilCurent.y += proiectilCurent.speed;
+		            }
+		    }
+
+      }
 
 			// Verificare daca se afla o coliziune intre proiectil, si
 			// intre inamici.
@@ -493,28 +503,23 @@
 				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
 			};
 
-         /**
-          * Proiectil inamici. Se va randa proiectilul pe care inamicii il
-          * lansaeaza.
-          *
-          */
-         for(i in game.enemies) {
-                var inamic = game.enemies[i];
-                if(inamic.isShooting && game.proiectilInamic.length > 0) {
-                        for(j in game.prioiectilInamic) {
-                                var proiectil = game.proiectilInamic[j];
-                                game.ctxInamici.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
-                        }
-                }
-         }
-
 			// Proiectil Player - arata pana la marginea superioara a ecranului.
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
 				game.ctxBullet.clearRect(bullet.x, bullet.y, game.width, game.height);
 				game.ctxBullet.drawImage(game.images[bullet.image], bullet.x, bullet.y, bullet.width, bullet.height);
-				//game.ctxBullet.clearRect(bullet.x, bullet.y, bullet.size, bullet.size);
 			};
+        
+      /**
+       * Afisare proiectil inamic.
+       *
+       */
+      for (i in game.proiectilImanici) {
+        var proiectil = game.proiectilInamici[i];
+        game.ctxBullet.clearRect(proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+        game.ctxBullet.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+        console.log(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+      }
 
          /**
           * Afisare scor.
