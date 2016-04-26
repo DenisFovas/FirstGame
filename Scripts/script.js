@@ -586,6 +586,9 @@
 			"Images/cplusplus.png",
 			"Images/csharp.png",
 			"Images/Java.png",
+			"Images/code_bun.png",
+			"Images/code_ok.png",
+			"Images/code.png",
 			"Images/php.png"
 			]);
 			
