@@ -96,6 +96,7 @@
         game.ctxInamici    = document.getElementById("inamici").getContext("2d");
         game.ctxBullet     = document.getElementById("bullet").getContext("2d");
         game.ctxText       = document.getElementById("text").getContext("2d");
+        game.ctxEnemyBullet = document.getElementById("enemyBullet").getContext("2d");
 
 
 			/*=================================
@@ -394,7 +395,7 @@
           * Se va alege inamicul care v-a trage.
           *
           */
-      if (Math.random() * 1 >= 0.8) {
+      if (Math.random() * 1 >= 0.8 && game.enemies[i].mort === false) {
          var idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));
 
 		    /**
@@ -408,10 +409,9 @@
 		            y: game.enemies[i].y + game.enemies[i].height,
 		            width: 10,
 		            height: 10,
-		            speed: 1
+		            speed: 5
 		    }
 		    game.proiectilInamici.push(proiectil);
-		    console.log(game.proiectilInamici.length);
 
      		/**
 		    * Algoritmul de tip update al proiectilelor inamicilor.
@@ -503,7 +503,7 @@
 				game.ctxInamici.drawImage(game.images[inamic.image], inamic.x, inamic.y, inamic.width, inamic.height);
 			};
 
-			// Proiectil Player - arata pana la marginea superioara a ecranului.
+			// Proiectil Player 
 			for(i in game.proiectilPlayer) {
 				var bullet = game.proiectilPlayer[i];
 				game.ctxBullet.clearRect(bullet.x, bullet.y, game.width, game.height);
@@ -514,13 +514,11 @@
        * Afisare proiectil inamic.
        *
        */
-      for (i in game.proiectilImanici) {
+      for (var i = 0, l = game.proiectilInamici.length; i < l; i++) {
         var proiectil = game.proiectilInamici[i];
-        game.ctxBullet.clearRect(proiectil.x, proiectil.y, proiectil.width, proiectil.height);
-        game.ctxBullet.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
-        console.log(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+        game.ctxEnemyBullet.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
+        game.ctxEnemyBullet.clearRect(0, 0, game.width, game.heigh);
       }
-
          /**
           * Afisare scor.
           *
