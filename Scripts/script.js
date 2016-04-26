@@ -474,7 +474,7 @@
 			// unui anumit timp, sterg imaginea de pe canvas,
 			for (i in game.enemies){
 				if (game.enemies[i].mort === true) {
-					game.enemies[i].timpMoarte--;
+					game.enemies[i].timpMoarte--;		
 				};
 				if (game.enemies[i].mort === true && game.enemies[i].timpMoarte <= 0 ) {
 					game.ctxInamici.clearRect(game.enemies[i].x, game.enemies[i].y, game.enemies[i].width, game.enemies[i].height);
