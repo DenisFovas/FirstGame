@@ -581,15 +581,15 @@
 		// Incarc imaginile
 		incarcareImagini([
 			"Images/Nava1.png", 
-			"Images/Glont.png",
+			"Images/Glont.png", 
 			"Images/Inamic-Explozie.png",
 			"Images/cplusplus.png",
 			"Images/csharp.png",
+			"Images/php.png",
 			"Images/Java.png",
 			"Images/code_bun.png",
 			"Images/code_ok.png",
-			"Images/code.png",
-			"Images/php.png"
+			"Images/code.png"
 			]);
 			
 		// verific imaginile.
