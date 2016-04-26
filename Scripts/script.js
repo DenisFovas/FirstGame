@@ -395,9 +395,17 @@
           * Se va alege inamicul care v-a trage.
           *
           */
-      if (Math.random() * 1 >= 0.8 && game.enemies[i].mort === false) {
+      if (Math.random() * 1 >= 0.8) {
          var idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));
 
+         /**
+          * Cat timp nu avem conditiile ca sa putem alege un inamic unic de fiecare data, o sa
+          * cautam un inamic posibil.
+          *
+          */
+         while (typeof game.enemies[idInamicActiv] === undefined) {
+              idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));   
+         }
 		    /**
 		    * Creez un bullet in punctul x-width/2, y+height, width heigth, speed
 		    * In cadrul acestuia, ii atribuim imaginea dorita.
@@ -424,14 +432,13 @@
 		            * sa punem algoritmul sa poata continua.
 		            *
 		            */
+		            proiectilCurent.y += proiectilCurent.speed;
 		            if (proiectilCurent.y + proiectilCurent.height >= game.height + 10) {
 		                     game.proiectilInamici.splice(i, 1);
 		                     i--;
 		                     l--;
 		                     continue;
-		            } else {
-		                    proiectilCurent.y += proiectilCurent.speed;
-		            }
+		            } 
 		    }
 
       }
@@ -447,6 +454,8 @@
 						// Oprim proiectulul odata cu o coliziune
 						game.ctxBullet.clearRect(game.proiectilPlayer[contorProiectil].x, game.proiectilPlayer[contorProiectil].y, game.proiectilPlayer[contorProiectil].width + 5, game.proiectilPlayer[contorProiectil].height + 10)
 						game.proiectilPlayer.splice(contorProiectil, 1);
+            i--;
+            continue;
                   /**
                    * Se modifica scorul in caz ca se distrug inamici.
                    *
