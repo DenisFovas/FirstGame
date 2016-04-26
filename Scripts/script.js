@@ -160,11 +160,11 @@
 
     function formeazaPlayer() {
 
-        var width = game.width * 0.15;
+      	var width = game.width * 0.1;
         var height = width;
         
         var x = game.width * 0.5 - width / 2;
-        var y = game.height * 0.85;
+        var y = game.height * 0.8;
         var speed = 4;
         var hp = 10;
         var player = {
