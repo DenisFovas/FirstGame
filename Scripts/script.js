@@ -414,8 +414,8 @@
 		    *
 		    */
 		    var proiectil = {
-		            x: game.enemies[i].x + game.enemies[i].width / 2,
-		            y: game.enemies[i].y + game.enemies[i].height - 8,
+		            x: game.enemies[idInamicActiv].x + game.enemies[idInamicActiv].width / 2,
+		            y: game.enemies[idInamicActiv].y + game.enemies[idInamicActiv].height - 8,
 		            width: 10,
 		            height: 10,
 		            speed: 5,
