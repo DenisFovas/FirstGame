@@ -572,10 +572,9 @@
 		=            Apelare de functii, pentru a incepe programul            =
 		=====================================================================*/
 				
-
 		// Incarc imaginile
 		incarcareImagini([
-			"Images/palyer/Nava1.png", 
+			"Images/player/Nava1.png", 
 			"Images/player/Glont.png",
 			"Images/inamici/Inamic-Explozie.png",
 			"Images/inamici/big-data.png",
