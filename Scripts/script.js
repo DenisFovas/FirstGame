@@ -414,8 +414,8 @@
 		    *
 		    */
 		    var proiectil = {
-		            x: game.enemies[i].x - game.enemies[i].width / 2,
-		            y: game.enemies[i].y + game.enemies[i].height,
+		            x: game.enemies[i].x + game.enemies[i].width / 2,
+		            y: game.enemies[i].y + game.enemies[i].height - 8,
 		            width: 10,
 		            height: 10,
 		            speed: 5,
@@ -425,6 +425,8 @@
 		    }
 		    game.proiectilInamici.push(proiectil);
 
+
+      }
      		/**
 		    * Algoritmul de tip update al proiectilelor inamicilor.
 		    *
@@ -444,8 +446,6 @@
 		                     continue;
 		            } 
 		    }
-
-      }
 
 			// Verificare daca se afla o coliziune intre proiectil, si
 			// intre inamici.
