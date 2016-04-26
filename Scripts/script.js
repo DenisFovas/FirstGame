@@ -406,6 +406,7 @@
          while (typeof game.enemies[idInamicActiv] === undefined) {
               idInamicActiv = Math.round(Math.random() * (game.enemies.lenght - 1));   
          }
+
 		    /**
 		    * Creez un bullet in punctul x-width/2, y+height, width heigth, speed
 		    * In cadrul acestuia, ii atribuim imaginea dorita.
@@ -417,7 +418,10 @@
 		            y: game.enemies[i].y + game.enemies[i].height,
 		            width: 10,
 		            height: 10,
-		            speed: 5
+		            speed: 5,
+                draw: function () {
+                        game.ctxEnemyBullet.drawImage(game.images[2], this.x, this.y, this.width, this.height);
+                }
 		    }
 		    game.proiectilInamici.push(proiectil);
 
@@ -523,10 +527,10 @@
        * Afisare proiectil inamic.
        *
        */
+      game.ctxEnemyBullet.clearRect(0, 0, game.width, game.height);
       for (var i = 0, l = game.proiectilInamici.length; i < l; i++) {
         var proiectil = game.proiectilInamici[i];
-        game.ctxEnemyBullet.drawImage(game.images[2], proiectil.x, proiectil.y, proiectil.width, proiectil.height);
-        game.ctxEnemyBullet.clearRect(0, 0, game.width, game.heigh);
+        proiectil.draw();
       }
          /**
           * Afisare scor.
