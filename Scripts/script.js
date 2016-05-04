@@ -429,6 +429,7 @@
 		    game.proiectilInamici.push(proiectil);
 		 }
 
+     console.log(game.proiectilInamici.length);
       }
      		/**
 		    * Algoritmul de tip update al proiectilelor inamicilor.
